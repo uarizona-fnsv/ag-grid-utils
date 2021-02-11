@@ -3,24 +3,37 @@ import MockAdapter from "axios-mock-adapter"
 import data from "./olympicWinners.json"
 
 const mock = new MockAdapter(axios)
+
+const filterFns = {
+  icontains: (target, values) => {
+    return values
+      .map(v => target.toLowerCase().includes(v.toLowerCase()))
+      .every(x => x)
+  },
+  in: (target, values) => {
+    return !values.map(v => target === v).every(x => !x)
+  },
+  isnull: (target, values) => {
+    return values
+      .map(v => target === null || target === undefined)
+      .every(x => x)
+  },
+  iexact: (target, values) => {
+    return values.map(v => target === v).every(x => x)
+  },
+}
+
 mock.onGet(/\/olympic\/.*/).reply(config => {
   const { limit, offset, ...filterParams } = config.params
   const filters = Object.entries(filterParams)
   if (filters.length) console.log("Request filters:", filterParams)
   const filterFn = row => {
     return filters
-      .map(([key, value]) => {
+      .map(([key, val]) => {
         const [field, lookup] = key.split("__")
-        let target = row[field]
-        if (typeof target === "string") {
-          target = target.toLowerCase()
-          value = value.toLowerCase()
-        }
-        if (lookup === "icontains") {
-          return target.includes(value)
-        } else if (!lookup) {
-          return target == value
-        }
+        const value = val.split(",")
+        const filter = filterFns[lookup] || filterFns.iexact
+        return filter(row[field], value)
       })
       .every(x => x)
   }

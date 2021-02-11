@@ -2,16 +2,16 @@ import { AgGridVue } from "ag-grid-vue"
 import axios from "axios"
 
 import Datasource from "../src/utils/datasource"
-import ColumnFilter from "../src/components/ColumnFilter"
+import ColumnFilterSet from "../src/components/ColumnFilterSet"
 
 export default {
-  title: "Components/ColumnFilter",
-  component: ColumnFilter,
+  title: "Components/ColumnFilterSet",
+  component: ColumnFilterSet,
 }
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { AgGridVue, ColumnFilter },
+  components: { AgGridVue, ColumnFilterSet },
   template: `
     <AgGridVue
       class="ag-theme-balham"
@@ -37,11 +37,11 @@ const Template = (args, { argTypes }) => ({
       gridOptions: {
         rowModelType: "serverSide",
         defaultColDef: {
-          filter: "ColumnFilter",
+          filter: "ColumnFilterSet",
           menuTabs: ["filterMenuTab"],
           filterParams: { getOptions: this.getOptions },
         },
-        frameworkComponents: { ColumnFilter: "ColumnFilter" },
+        frameworkComponents: { ColumnFilterSet: "ColumnFilterSet" },
         columnDefs: [
           {
             headerName: "Athlete",

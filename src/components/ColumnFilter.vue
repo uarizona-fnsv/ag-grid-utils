@@ -11,11 +11,7 @@
         v-model="value"
         :type="params.colDef.__metadata__.type"
         :col="params.colDef"
-        :get-options="
-          params.colDef.filterParams &&
-            params.colDef.filterParams.getOptions &&
-            params.colDef.filterParams.getOptions(params.colDef.field)
-        "
+        :get-options="getOptionsPartial"
         @keypress.enter="submit"
       ></FilterInput>
     </div>
@@ -37,6 +33,16 @@ export default {
   computed: {
     datasource() {
       return this.params.api.rowModel.datasource
+    },
+    /**
+     * Partially apply getOptions with field argument
+     * @returns {(value: string) => string[]}
+     */
+    getOptionsPartial() {
+      return this.params.colDef.filterParams.getOptions.bind(
+        null,
+        this.params.colDef.field,
+      )
     },
   },
   methods: {

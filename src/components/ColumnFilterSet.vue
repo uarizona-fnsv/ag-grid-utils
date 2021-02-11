@@ -88,27 +88,10 @@ export default {
       return method ? method({ value }) : value
     },
     async fetchOptions() {
-      // Don't include current filter for field when fetching possible values
-      const field = this.params.colDef.field.replace("annotation.", "")
-      const sourceParams = { ...this.datasource.params }
-      const key = Object.keys(sourceParams).find(k => k.includes(field))
-      if (key) {
-        delete sourceParams[key]
-      }
-
-      const path = `transactions/autocomplete/`
-      const params = {
-        ...sourceParams,
-        field: this.params.colDef.field.replace("annotation.", ""),
-        value: this.filter,
-        limit: 10,
-      }
-      const [err, res] = await this.$api.get(path, { params })
-      if (err) {
-        this.$alert(err?.response?.data || err.toString())
-      } else if (res.data) {
-        this.options = res.data
-      }
+      this.options = await this.params.colDef.filterParams.getOptions(
+        this.params.colDef.field,
+        this.filter,
+      )
     },
     /** Submit any change on close, grab latest state on open. */
     async syncValue(visible) {
