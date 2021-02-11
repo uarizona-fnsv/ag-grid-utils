@@ -19,7 +19,11 @@ const Template = (args, { argTypes }) => ({
     return { value: "" }
   },
   components: { FilterInput },
-  template: '<FilterInput v-bind="$props" v-model="value" />',
+  template: `
+  <div className="form-group">
+    <label>{{title}}</label>
+    <FilterInput v-bind="$props" v-model="value" />
+  </div>`,
 })
 
 export const string = Template.bind({})
@@ -27,18 +31,19 @@ string.args = {
   id: "name",
   type: "string",
   getOptions: AutocompleteStories.Primary.args.getOptions,
+  title: "Team Members",
 }
 
 export const number = Template.bind({})
 number.args = {
   id: "answer_to_life_the_universe_and_everything",
   type: "number",
-  value: "42",
+  title: "The Answer To Life The Universe And Everything",
 }
 
 export const date = Template.bind({})
 date.args = {
   id: "today",
   type: "date",
-  value: new Date().toISOString().split("T")[0],
+  title: "Today's Date",
 }

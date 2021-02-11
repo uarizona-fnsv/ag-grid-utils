@@ -1,6 +1,6 @@
 <template>
   <datalist :id="id">
-    <option value="(Blanks)">(Blanks)</option>
+    <option v-if="blankOption" value="(Blanks)">(Blanks)</option>
     <option v-for="option in options" :key="option" :value="option">
       {{ option }}
     </option>

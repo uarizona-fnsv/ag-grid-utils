@@ -9,6 +9,7 @@
       <FilterInput
         :id="params.colDef.field + '_column'"
         v-model="value"
+        :type="params.colDef.__metadata__.type"
         :col="params.colDef"
         @keypress.enter="submit"
       ></FilterInput>
@@ -18,10 +19,14 @@
 
 <script>
 import FilterInput from "./FilterInput"
+import { ObserveVisibility } from "vue-observe-visibility"
 
 export default {
   components: {
     FilterInput,
+  },
+  directives: {
+    ObserveVisibility,
   },
   data() {
     return {
