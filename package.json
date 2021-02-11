@@ -9,6 +9,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "files": [
+    "/src/components",
+    "/src/utils"
+  ],
   "dependencies": {
     "@fso/bootstrap": "git+https://git@gitlab.fso.arizona.edu/FAST/fso-bootstrap.git#1.2.0",
     "axios": "^0.21.1",

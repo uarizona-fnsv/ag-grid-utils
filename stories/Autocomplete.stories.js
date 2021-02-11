@@ -1,4 +1,4 @@
-import Autocomplete from "../components/Autocomplete.vue"
+import Autocomplete from "../src/components/Autocomplete.vue"
 
 export default {
   title: "Components/Autocomplete",

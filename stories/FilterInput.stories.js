@@ -1,4 +1,4 @@
-import FilterInput from "../components/FilterInput.vue"
+import FilterInput from "../src/components/FilterInput.vue"
 import * as AutocompleteStories from "./Autocomplete.stories"
 
 export default {
