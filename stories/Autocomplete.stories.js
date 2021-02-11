@@ -27,7 +27,7 @@ const Template = (args, { argTypes }) => ({
 
 export const Primary = Template.bind({})
 Primary.args = {
-  getOptions(value) {
+  async getOptions(value) {
     const all = [
       "Brock",
       "Jason",

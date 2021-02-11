@@ -11,6 +11,11 @@
         v-model="value"
         :type="params.colDef.__metadata__.type"
         :col="params.colDef"
+        :get-options="
+          params.colDef.filterParams &&
+            params.colDef.filterParams.getOptions &&
+            params.colDef.filterParams.getOptions(params.colDef.field)
+        "
         @keypress.enter="submit"
       ></FilterInput>
     </div>
@@ -22,12 +27,8 @@ import FilterInput from "./FilterInput"
 import { ObserveVisibility } from "vue-observe-visibility"
 
 export default {
-  components: {
-    FilterInput,
-  },
-  directives: {
-    ObserveVisibility,
-  },
+  components: { FilterInput },
+  directives: { ObserveVisibility },
   data() {
     return {
       value: "",

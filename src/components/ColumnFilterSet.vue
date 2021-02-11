@@ -54,9 +54,11 @@
 </template>
 
 <script>
+import { ObserveVisibility } from "vue-observe-visibility"
 import { truncate } from "lodash"
 
 export default {
+  directives: { ObserveVisibility },
   data() {
     return {
       options: [],
@@ -67,9 +69,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["datasource"]),
     unselected() {
       return this.options.filter(x => !this.selected.includes(x))
+    },
+    datasource() {
+      return this.params.api.rowModel.datasource
     },
   },
   watch: {

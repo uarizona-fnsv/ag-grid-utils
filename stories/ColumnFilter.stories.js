@@ -1,4 +1,5 @@
 import { AgGridVue } from "ag-grid-vue"
+import axios from "axios"
 
 import Datasource from "../src/utils/datasource"
 import ColumnFilter from "../src/components/ColumnFilter"
@@ -11,24 +12,35 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { AgGridVue, ColumnFilter },
-  template: `<AgGridVue
+  template: `
+    <AgGridVue
       class="ag-theme-balham"
       :grid-options="gridOptions"
       @grid-ready="onReady"
       style="width: calc(100vw - 30px); height: calc(100vh - 3.5rem);"
-      />`,
+    />`,
   methods: {
     onReady() {
       const gridApi = this.gridOptions.api
-      const ds = new Datasource({ gridApi, path: "/" })
+      const ds = new Datasource({ gridApi, path: "/olympic/" })
       gridApi.setServerSideDatasource(ds)
+    },
+    getOptions: field => async value => {
+      const res = await axios.get("/autocomplete/", {
+        params: { field, value },
+      })
+      return res.data
     },
   },
   data() {
     return {
       gridOptions: {
         rowModelType: "serverSide",
-        defaultColDef: { filter: "ColumnFilter" },
+        defaultColDef: {
+          filter: "ColumnFilter",
+          menuTabs: ["filterMenuTab"],
+          filterParams: { getOptions: this.getOptions },
+        },
         frameworkComponents: { ColumnFilter: "ColumnFilter" },
         columnDefs: [
           {

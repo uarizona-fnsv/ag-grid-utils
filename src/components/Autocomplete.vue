@@ -25,12 +25,13 @@ export default {
     return { options: [] }
   },
   watch: {
-    value() {
-      this.options = this.getOptions(this.value)
+    async value() {
+      this.options = await this.getOptions(this.value)
+      console.log(this.options)
     },
-    focus(value) {
+    async focus(value) {
       if (value) {
-        this.options = this.getOptions(this.value)
+        this.options = await this.getOptions(this.value)
       }
     },
   },
