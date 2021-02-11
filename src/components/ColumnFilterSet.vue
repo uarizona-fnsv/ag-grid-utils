@@ -100,7 +100,7 @@ export default {
       const filter = this.datasource.getFilter(field)
       if (visible && filter?.raw) {
         this.change = false
-        this.selected = Array.isArray(filter.raw) ? filter.raw : [filter.raw]
+        this.selected = filter.raw
       } else if (this.change) {
         this.submit()
       }
@@ -122,7 +122,7 @@ export default {
     },
     submit() {
       this.change = false
-      const value = this.blanksFilter ? "(Blanks)" : this.selected
+      const value = this.blanksFilter ? ["(Blanks)"] : this.selected
       this.datasource.updateFilter(this.params.colDef, value)
     },
     clear() {

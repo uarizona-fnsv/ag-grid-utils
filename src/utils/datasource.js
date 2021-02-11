@@ -2,8 +2,8 @@ import axios from "axios"
 
 /**
  * @typedef {Object} Filter
- * @property {string|number} raw - Value entered by the user
- * @property {string|number} value - Value transformed for filtering
+ * @property {string[]} raw - Value entered by the user
+ * @property {string} value - Value transformed for filtering
  * @property {string} key - The Annotation/Transaction field to filter on
  * @property {string} lookup = The Django lookup to filter by
  */
@@ -181,7 +181,7 @@ class Datasource {
    * Does any value transformation necessary.
    *
    * @param {Object} colDef - an agGrid column definition.
-   * @param {string} rawValue - raw value for the filter.
+   * @param {string[]} rawValue - raw value for the filter.
    * @returns {Filter} Filter for datasource
    */
   createFilter(colDef, rawValue) {
@@ -190,34 +190,15 @@ class Datasource {
     /** @type any */
     let value = rawValue
 
-    if (rawValue === "(Blanks)" || rawValue.includes("(Blanks)")) {
+    if (rawValue.includes("(Blanks)")) {
       lookup = "__isnull"
       value = true
     } else {
-      switch (colDef.__metadata__.type) {
-        case "datetime":
-          value += "T00:00:00"
-          break
-        case "string":
-          if (Array.isArray(value)) {
-            lookup = value.length > 1 ? "__in" : "__icontains"
-            value = value.map(x => x.trim()).join()
-          } else {
-            value = value.trim()
-            lookup = "__icontains"
-          }
-          break
-        case "status_codes":
-        case "type_codes":
-          lookup = "__code__in"
-          value = value.join()
-          break
-        case "sample":
-          lookup = "__id"
-          break
-        default:
-          break
+      lookup = value.length > 1 ? "__in" : "__icontains"
+      if (colDef.__metadata__.type === "datetime") {
+        value = value.map(v => v + "T00:00:00")
       }
+      value = value.join()
     }
 
     return {

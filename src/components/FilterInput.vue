@@ -109,9 +109,7 @@ export default {
     emitValue(event) {
       let { value } = event.target
       // Allow multiple values separated by semicolons
-      if (value?.includes(";")) {
-        value = value.split(";").map(x => x.trim())
-      }
+      value = value.split(";").map(x => x.trim())
       this.$emit(event.type, value)
     },
     clear() {

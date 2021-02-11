@@ -27,7 +27,6 @@ export default {
   watch: {
     async value() {
       this.options = await this.getOptions(this.value)
-      console.log(this.options)
     },
     async focus(value) {
       if (value) {

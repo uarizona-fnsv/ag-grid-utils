@@ -32,8 +32,9 @@ mock.onGet(/\/olympic\/.*/).reply(config => {
       .map(([key, val]) => {
         const [field, lookup] = key.split("__")
         const value = val.split(",")
+        const target = String(row[field])
         const filter = filterFns[lookup] || filterFns.iexact
-        return filter(row[field], value)
+        return filter(target, value)
       })
       .every(x => x)
   }
@@ -42,12 +43,13 @@ mock.onGet(/\/olympic\/.*/).reply(config => {
 })
 
 mock.onGet(/\/autocomplete\/.*/).reply(config => {
-  const { limit = 10, field, value } = config.params
+  const { limit, field, value } = config.params
   let results = data
-    .map(row => row[field])
+    .map(row => String(row[field]))
     .filter(onlyUnique)
     .filter(item => item.toLowerCase().includes(value.toLowerCase()))
     .slice(0, limit)
+    .sort((a, b) => a.localeCompare(b))
   return [200, results]
 })
 
