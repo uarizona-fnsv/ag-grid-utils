@@ -67,6 +67,12 @@
 
 <script>
 import Autocomplete from "./Autocomplete"
+
+/**
+ * A text input with autocomplete and multi-value support.
+ *
+ * Multiple values can be separated by semicolons.
+ */
 export default {
   components: {
     Autocomplete,
@@ -110,6 +116,11 @@ export default {
       let { value } = event.target
       // Allow multiple values separated by semicolons
       value = value.split(";").map(x => x.trim())
+      /**
+       * Always emits an array on change and input.
+       * @event input-change
+       * @type {string[]} - value
+       */
       this.$emit(event.type, value)
     },
     clear() {

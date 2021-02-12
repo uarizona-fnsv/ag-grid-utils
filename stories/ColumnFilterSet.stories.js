@@ -49,4 +49,5 @@ const Template = (args, { argTypes }) => ({
   },
 })
 
-export const grid = Template.bind({})
+export const Primary = Template.bind({})
+Primary.storyName = "ColumnFilterSet"

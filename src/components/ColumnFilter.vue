@@ -6,24 +6,24 @@
   >
     <div class="form-group">
       <label class="mb-2">{{ params.colDef.headerName }}</label>
-      <FilterInput
+      <AutoInput
         :id="params.colDef.field + '_column'"
         v-model="value"
         :type="params.colDef.__metadata__.type"
         :col="params.colDef"
         :get-options="getOptionsPartial"
         @keypress.enter="submit"
-      ></FilterInput>
+      ></AutoInput>
     </div>
   </div>
 </template>
 
 <script>
-import FilterInput from "./FilterInput"
+import AutoInput from "./AutoInput"
 import { ObserveVisibility } from "vue-observe-visibility"
 
 export default {
-  components: { FilterInput },
+  components: { AutoInput },
   directives: { ObserveVisibility },
   data() {
     return {

@@ -49,3 +49,4 @@ Primary.args = {
   id: "auto",
   blankOption: false,
 }
+Primary.storyName = "Autocomplete"

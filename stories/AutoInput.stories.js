@@ -1,9 +1,9 @@
-import FilterInput from "../src/components/FilterInput.vue"
+import AutoInput from "../src/components/AutoInput.vue"
 import * as AutocompleteStories from "./Autocomplete.stories"
 
 export default {
-  title: "Components/FilterInput",
-  component: FilterInput,
+  title: "Components/AutoInput",
+  component: AutoInput,
   argTypes: {
     value: {
       table: {
@@ -18,11 +18,11 @@ const Template = (args, { argTypes }) => ({
   data() {
     return { value: "" }
   },
-  components: { FilterInput },
+  components: { AutoInput },
   template: `
   <div className="form-group">
     <label>{{title}}</label>
-    <FilterInput v-bind="$props" v-model="value" />
+    <AutoInput v-bind="$props" v-model="value" />
   </div>`,
 })
 

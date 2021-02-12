@@ -149,7 +149,7 @@
                     @change="sliderState = $event"
                   />
                 </div>
-                <FilterInput
+                <AutoInput
                   :id="col.field + '-panel'"
                   :col="col"
                   :value="getParamAttr(col.field, 'raw')"
@@ -159,7 +159,7 @@
                   @input="setParam(col, $event)"
                   @change="setParam(col, $event)"
                 >
-                </FilterInput>
+                </AutoInput>
               </div>
             </template>
           </div>
@@ -191,7 +191,7 @@ import PanelControls from "./PanelControls"
 import CodesSelector from "./CodesSelector"
 import SearchPeopleButton from "./SearchPeopleButton"
 import SearchPeopleSlider from "./SearchPeopleSlider"
-import FilterInput from "./FilterInput"
+import AutoInput from "./AutoInput"
 import CommunicationSelector from "./CommunicationSelector"
 import FilterIcon from "../assets/filter.svg"
 import SearchIcon from "../assets/search.svg"
@@ -205,7 +205,7 @@ export default {
     PanelControls,
     SearchPeopleButton,
     SearchPeopleSlider,
-    FilterInput,
+    AutoInput,
     FilterIcon,
     CodesSelector,
     CommunicationSelector,
