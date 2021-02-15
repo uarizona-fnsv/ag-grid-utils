@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import AutoInput from "./AutoInput"
+import AutoInput from "./AutoInput.vue"
 import { ObserveVisibility } from "vue-observe-visibility"
 
 export default {

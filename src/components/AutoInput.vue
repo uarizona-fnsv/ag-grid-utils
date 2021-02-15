@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import Autocomplete from "./Autocomplete"
+import Autocomplete from "./Autocomplete.vue"
 
 /**
  * A text input with autocomplete and multi-value support.
