@@ -15,11 +15,11 @@ export const CustomPanel = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { GridPanel },
   template: `
-      <GridPanel>
+      <GridPanel :grid-params="params">
         <template v-slot:title>
           <h5 class="m-0">Custom</h5>
         </template>
-        <template v-slot:controls>
+        <template v-slot:extra-controls>
           <button class="btn btn-sm btn-primary mr-1">Reset</button>
         </template>
         <template>

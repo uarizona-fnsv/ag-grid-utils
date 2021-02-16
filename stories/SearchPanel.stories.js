@@ -1,39 +1,20 @@
-import Vue from "vue"
 import { AgGridVue } from "ag-grid-vue"
 import axios from "axios"
 
 import Datasource from "../src/utils/datasource"
-import GridPanel from "../src/components/GridPanel.vue"
+import SearchPanel from "../src/components/SearchPanel.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 
 export default {
-  title: "Components/GridPanel",
-  component: GridPanel,
+  title: "Components/SearchPanel",
+  component: SearchPanel,
 }
 
-export const CustomPanel = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
-  components: { GridPanel },
-  template: `
-      <GridPanel>
-        <template v-slot:title>
-          <h5 class="m-0">Custom</h5>
-        </template>
-        <template v-slot:controls>
-          <button class="btn btn-sm btn-primary mr-1">Reset</button>
-        </template>
-        <template>
-          <p class="p-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </template>
-      </GridPanel>`,
-})
+// TODO controls, title
 
-const GridPanelExample = Vue.extend(CustomPanel([], { argTypes: {} }))
-
-export const InGrid = (args, { argTypes }) => ({
+export const Primary = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { AgGridVue, GridPanelExample },
+  components: { AgGridVue, SearchPanel },
   template: `
     <AgGridVue
       class="ag-theme-balham"
@@ -59,21 +40,22 @@ export const InGrid = (args, { argTypes }) => ({
     return {
       gridOptions: {
         rowModelType: "serverSide",
-        frameworkComponents: { GridPanelExample: "GridPanelExample" },
+        frameworkComponents: { SearchPanel: "SearchPanel" },
         sideBar: {
           toolPanels: [
             {
-              id: "customPanel",
-              labelDefault: "Custom Panel",
-              labelKey: "customPanel",
+              id: "searchPanel",
+              labelDefault: "Search Panel",
+              labelKey: "searchPanel",
               iconKey: "filter",
-              toolPanelFramework: "GridPanelExample",
+              toolPanelFramework: "SearchPanel",
             },
           ],
-          defaultToolPanel: "customPanel",
+          defaultToolPanel: "searchPanel",
         },
         columnDefs,
       },
     }
   },
 })
+Primary.storyName = "SearchPanel"

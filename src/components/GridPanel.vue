@@ -69,14 +69,15 @@
 
 <script>
 export default {
-  name: "RelatedPanel",
+  props: { gridParams: { type: Object, default: null } },
   methods: {
     resizePanel() {
       const el = this.$refs.root.closest(".ag-tool-panel-wrapper")
       el.style.width = parseInt(el.style.width) > 550 ? "550px" : "800px"
     },
     closePanel() {
-      this.params.api.closeToolPanel()
+      const params = this.params || this.gridParams
+      params.api.closeToolPanel()
     },
   },
 }

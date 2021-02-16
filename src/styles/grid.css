@@ -1,0 +1,18 @@
+/* Ag-Grid Styles */
+
+.ag-side-bar > .ag-tool-panel-wrapper {
+  width: 550px;
+}
+.ag-filter-toolpanel-instance {
+  font-family: var(--font-family-sans-serif);
+  font-size: 1rem;
+}
+.ag-filter-toolpanel-header {
+  font-weight: 600;
+}
+.ag-tool-panel-wrapper {
+  align-items: flex-start;
+}
+.ag-column-panel {
+  align-self: stretch;
+}

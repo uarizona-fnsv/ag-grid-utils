@@ -38,6 +38,8 @@ import axios from "axios"
 class Datasource {
   options
   client
+  /** @type {string} */
+  search = ""
   /** @type {{ [key: string]: string }} */
   defaultParams = {}
   /** @type {{ [key: string]: string }} */
@@ -106,16 +108,18 @@ class Datasource {
    */
   getParams(request) {
     const { startRow, endRow, sortModel } = request
+    // Params are scoped with underscores to avoid conflict with column names
     const params = {
       ...this.defaultParams,
       ...this.getFilterParams(),
-      offset: startRow,
-      limit: endRow - startRow,
-      // search: store.state.search,es
+      _search: this.search,
+      _offset: startRow,
+      _limit: endRow - startRow,
     }
     const ordering = this.parseSortModel(sortModel)
     // @ts-ignore
-    if (ordering) params.ordering = ordering
+    // This key's presence in the object matters, even if value is null
+    if (ordering) params._ordering = ordering
     return params
   }
 
@@ -208,6 +212,11 @@ class Datasource {
       key,
       lookup,
     }
+  }
+
+  /** Refresh grid data from souce */
+  refresh() {
+    this.gridApi.purgeServerSideCache()
   }
 }
 

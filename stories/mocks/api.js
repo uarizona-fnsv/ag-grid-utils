@@ -24,9 +24,12 @@ const filterFns = {
 }
 
 mock.onGet(/\/olympic\/.*/).reply(config => {
-  const { limit, offset, ...filterParams } = config.params
+  const { _limit, _offset, _search, ...filterParams } = config.params
   const filters = Object.entries(filterParams)
   if (filters.length) console.log("Request filters:", filterParams)
+  const searchFn = row => {
+    return Object.values(row).find(v => String(v).includes(_search))
+  }
   const filterFn = row => {
     return filters
       .map(([key, val]) => {
@@ -38,8 +41,12 @@ mock.onGet(/\/olympic\/.*/).reply(config => {
       })
       .every(x => x)
   }
-  let results = data.filter(filterFn).slice(offset, offset + limit)
-  return [200, { results, count: results.length }]
+  let results = data
+  if (_search) results = results.filter(searchFn)
+  results = results.filter(filterFn)
+  const count = results.length
+  results = results.slice(_offset, _offset + _limit)
+  return [200, { results, count }]
 })
 
 mock.onGet(/\/autocomplete\/.*/).reply(config => {
