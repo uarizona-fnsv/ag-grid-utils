@@ -1,7 +1,0 @@
-{
-  "include": ["src/**/*", "stories"],
-  "exclude": ["node_modules"],
-  "compilerOptions": {
-    "checkJs": true
-  },
-}
