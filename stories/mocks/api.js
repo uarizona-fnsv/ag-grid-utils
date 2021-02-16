@@ -1,6 +1,6 @@
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
-import data from "./olympicWinners.json"
+import { data } from "./olympicWinners.json"
 
 const mock = new MockAdapter(axios)
 

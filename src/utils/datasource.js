@@ -60,6 +60,7 @@ class Datasource {
    */
   constructor(options) {
     this.gridApi = options.gridApi
+    // @ts-ignore
     this.columnApi = this.gridApi.columnController.columnApi
     this.options = options
     this.client = options.axios || axios
@@ -161,12 +162,12 @@ class Datasource {
   /**
    * Update or remove filter and purge cache.
    * @param {Object} colDef - an agGrid column definition.
-   * @param {string} rawValue - raw value for the filter.
+   * @param {string[]} rawValue - raw value for the filter.
    */
   updateFilter(colDef, rawValue) {
     const filter = this.createFilter(colDef, rawValue)
     const { raw } = filter
-    if ((typeof raw === "string" && raw.length) || raw) {
+    if (raw.length) {
       this.filters[filter.key] = filter
     } else {
       delete this.filters[filter.key]
