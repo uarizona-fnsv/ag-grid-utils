@@ -39,29 +39,37 @@
 <script>
 export default {
   props: {
+    /**
+     * @type {Error|string}
+     */
     error: { type: [Error, String], default: null },
   },
   computed: {
     parsed() {
-      const parsed = {}
-      if (typeof this.error == "string") {
-        parsed.message = this.error
-        return parsed
+      const parts = {
+        message: "",
+        pre: "",
+        detail: "",
+        list: null,
       }
-      parsed.message = this.error.message
-      if (!this.error.response?.data) return
+      if (typeof this.error == "string") {
+        parts.message = this.error
+        return parts
+      }
+      parts.message = this.error.message
+      if (!this.error.response?.data) return parts
       if (typeof this.error.response.data == "string") {
         if (this.error.response.data.length > 100) {
-          parsed.pre = this.error.response.data
+          parts.pre = this.error.response.data
         } else {
-          parsed.detail = this.error.response.data
+          parts.detail = this.error.response.data
         }
       } else if (this.error.response.data?.detail) {
-        parsed.detail = this.error.response.data.detail
+        parts.detail = this.error.response.data.detail
       } else if (this.error.response.data) {
-        parsed.list = this.error.response.data
+        parts.list = this.error.response.data
       }
-      return parsed
+      return parts
     },
   },
   methods: {

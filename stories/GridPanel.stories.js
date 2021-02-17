@@ -11,7 +11,7 @@ export default {
   component: GridPanel,
 }
 
-export const CustomPanel = (args, { argTypes }) => ({
+export const Standalone = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { GridPanel },
   template: `
@@ -29,9 +29,9 @@ export const CustomPanel = (args, { argTypes }) => ({
       </GridPanel>`,
 })
 
-const GridPanelExample = Vue.extend(CustomPanel([], { argTypes: {} }))
+const GridPanelExample = Vue.extend(Standalone([], { argTypes: {} }))
 
-export const InGrid = (args, { argTypes }) => ({
+export const Grid = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { AgGridVue, GridPanelExample },
   template: `
