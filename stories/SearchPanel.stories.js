@@ -3,6 +3,7 @@ import axios from "axios"
 
 import Datasource from "../src/utils/datasource"
 import SearchPanel from "../src/components/SearchPanel.vue"
+import ColumnFilterSet from "../src/components/ColumnFilterSet.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 
 export default {
@@ -14,7 +15,7 @@ export default {
 
 export const Primary = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { AgGridVue, SearchPanel },
+  components: { AgGridVue, SearchPanel, ColumnFilterSet },
   template: `
     <AgGridVue
       class="ag-theme-balham"
@@ -40,7 +41,10 @@ export const Primary = (args, { argTypes }) => ({
     return {
       gridOptions: {
         rowModelType: "serverSide",
-        frameworkComponents: { SearchPanel: "SearchPanel" },
+        frameworkComponents: {
+          SearchPanel: "SearchPanel",
+          ColumnFilterSet: "ColumnFilterSet",
+        },
         sideBar: {
           toolPanels: [
             {
@@ -52,6 +56,11 @@ export const Primary = (args, { argTypes }) => ({
             },
           ],
           defaultToolPanel: "searchPanel",
+        },
+        defaultColDef: {
+          filter: "ColumnFilterSet",
+          menuTabs: ["filterMenuTab"],
+          filterParams: { getOptions: this.getOptions },
         },
         columnDefs,
       },
