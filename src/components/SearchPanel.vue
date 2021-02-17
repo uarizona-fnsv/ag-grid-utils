@@ -3,15 +3,17 @@
     <template #title>
       <h4 class="m-0">Search</h4>
     </template>
+
     <template #extra-controls>
-      <button class="btn btn-sm btn-primary-light mr-1">
+      <button class="btn btn-sm btn-primary-light mr-1" @click="submit">
         <SearchIcon width="16" style="margin-bottom: 2px;" />
         <strong>Go</strong>
       </button>
-      <button class="btn btn-sm btn-outline-primary mr-1">
+      <button class="btn btn-sm btn-outline-primary mr-1" @click="clearSearch">
         <strong>Clear</strong>
       </button>
     </template>
+
     <template #default>
       <form ref="form" class="p-2" @keyup.enter.prevent="submit">
         <div class="input-group mb-2">
