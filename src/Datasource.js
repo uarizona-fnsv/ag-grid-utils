@@ -40,9 +40,9 @@ class Datasource {
   client
   /** @type {string} */
   search = ""
-  /** @type {{ [key: string]: string }} */
+  /** @type {Object.<string, string>} */
   defaultParams = {}
-  /** @type {{ [key: string]: string }} */
+  /** @type {Object.<string, string>} */
   params = {}
   /** @type {{ [lookup: string]: Filter }} */
   filters = {}
