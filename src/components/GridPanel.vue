@@ -11,7 +11,7 @@
       <slot name="title">
         <div></div>
       </slot>
-      <div>
+      <div class="d-flex">
         <!-- @slot Additional controls for header -->
         <slot name="extra-controls" />
         <!-- @slot Override panel controls entirely -->
@@ -22,21 +22,7 @@
             title="Resize panel"
             @click="resizePanel"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="18 8 22 12 18 16"></polyline>
-              <polyline points="6 8 2 12 6 16"></polyline>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-            </svg>
+            <MoveIcon width="16" />
           </button>
           <button
             class="btn btn-sm btn-outline-dark"
@@ -44,21 +30,7 @@
             title="Close panel"
             @click="closePanel"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-x"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg></button
+            <XIcon width="18" /></button
         ></slot>
       </div>
     </div>
@@ -68,7 +40,11 @@
 </template>
 
 <script>
+import XIcon from "./icons/XIcon"
+import MoveIcon from "./icons/MoveIcon"
+
 export default {
+  components: { XIcon, MoveIcon },
   props: { gridParams: { type: Object, default: null } },
   methods: {
     resizePanel() {

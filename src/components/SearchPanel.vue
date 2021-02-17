@@ -1,5 +1,17 @@
 <template>
   <GridPanel v-observe-visibility="onVisibility" :grid-params="params">
+    <template #title>
+      <h4 class="m-0">Search</h4>
+    </template>
+    <template #extra-controls>
+      <button class="btn btn-sm btn-primary-light mr-1">
+        <SearchIcon width="16" style="margin-bottom: 2px;" />
+        <strong>Go</strong>
+      </button>
+      <button class="btn btn-sm btn-outline-primary mr-1">
+        <strong>Clear</strong>
+      </button>
+    </template>
     <template #default>
       <form ref="form" class="p-2" @keyup.enter.prevent="submit">
         <div class="input-group mb-2">
@@ -29,13 +41,8 @@
           @close="error = null"
         ></ErrorAlert> -->
 
-        <div class="my-2 text-muted d-flex align-items-start">
-          <!-- <FilterIcon
-            aria-label="Filters"
-            class="mx-2 mt-1"
-            width="16"
-            style="flex-shrink: 0;"
-          ></FilterIcon> -->
+        <div class="my-2 text-muted d-flex align-items-center">
+          <FilterIcon class="mx-2" width="16" style="flex-shrink: 0;" />
           <span v-if="currentFilters.length">
             <span
               v-for="filter in currentFilters"
@@ -49,7 +56,7 @@
               <span v-else>{{ filter.value }}</span>
             </span>
           </span>
-          <span v-else>None</span>
+          <span v-else>No Filters</span>
         </div>
 
         <!-- Columns without groups -->
@@ -127,6 +134,8 @@ import { cloneDeep, debounce } from "lodash"
 import CollapseCard from "./CollapseCard.vue"
 import GridPanel from "./GridPanel.vue"
 import AutoInput from "./AutoInput.vue"
+import SearchIcon from "./icons/SearchIcon"
+import FilterIcon from "./icons/FilterIcon"
 
 export default {
   name: "PanelSearch",
@@ -134,6 +143,8 @@ export default {
     CollapseCard,
     GridPanel,
     AutoInput,
+    SearchIcon,
+    FilterIcon,
   },
   directives: { ObserveVisibility },
   data() {
