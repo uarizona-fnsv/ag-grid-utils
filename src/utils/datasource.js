@@ -170,8 +170,7 @@ class Datasource {
    */
   updateFilter(colDef, rawValue) {
     const filter = this.createFilter(colDef, rawValue)
-    const { raw } = filter
-    if (raw.length) {
+    if (filter.raw && filter.raw[0]) {
       this.filters[filter.key] = filter
     } else {
       delete this.filters[filter.key]

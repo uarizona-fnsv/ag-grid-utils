@@ -222,10 +222,10 @@ export default {
       const datasource = this.params.api.rowModel.datasource
       this.changed = true
       const filter = datasource.createFilter(col, value)
-      if (!filter.raw || !filter.raw.length) {
-        this.$delete(this.filters, filter.key)
-      } else {
+      if (filter.raw && filter.raw[0]) {
         this.$set(this.filters, filter.key, filter)
+      } else {
+        this.$delete(this.filters, filter.key)
       }
     },
     colName(id) {
