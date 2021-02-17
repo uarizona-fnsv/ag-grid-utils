@@ -37,11 +37,11 @@
           </div>
         </div>
 
-        <!-- <ErrorAlert
+        <ErrorAlert
           v-if="error"
           :error="error"
           @close="error = null"
-        ></ErrorAlert> -->
+        ></ErrorAlert>
 
         <div class="my-2 text-muted d-flex align-items-center">
           <FilterIcon class="mx-2" width="16" style="flex-shrink: 0;" />
@@ -136,6 +136,7 @@ import { cloneDeep, debounce } from "lodash"
 import CollapseCard from "./CollapseCard.vue"
 import GridPanel from "./GridPanel.vue"
 import AutoInput from "./AutoInput.vue"
+import ErrorAlert from "./ErrorAlert"
 import SearchIcon from "./icons/SearchIcon"
 import FilterIcon from "./icons/FilterIcon"
 
@@ -147,6 +148,7 @@ export default {
     AutoInput,
     SearchIcon,
     FilterIcon,
+    ErrorAlert,
   },
   directives: { ObserveVisibility },
   data() {
