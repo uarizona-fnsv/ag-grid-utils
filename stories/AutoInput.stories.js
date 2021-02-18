@@ -20,10 +20,10 @@ const Template = (args, { argTypes }) => ({
   },
   components: { AutoInput },
   template: `
-  <div className="form-group">
+  <form className="form-group">
     <label>{{title}}</label>
     <AutoInput v-bind="$props" v-model="value" />
-  </div>`,
+  </form>`,
 })
 
 export const string = Template.bind({})
@@ -32,6 +32,7 @@ string.args = {
   type: "string",
   getOptions: AutocompleteStories.Primary.args.getOptions,
   title: "Team Members",
+  pattern: "\\w*",
 }
 
 export const number = Template.bind({})

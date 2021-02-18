@@ -58,7 +58,7 @@
     <Autocomplete
       v-if="getOptions"
       :id="id + '-list'"
-      :value="value"
+      :value="stringValue"
       :get-options="getOptions"
       :focus="focus"
     ></Autocomplete>
@@ -115,7 +115,7 @@ export default {
     emitValue(event) {
       let { value } = event.target
       // Allow multiple values separated by semicolons
-      value = value.split(";").map(x => x.trim())
+      value = value.split(";")
       /**
        * Always emits an array on change and input.
        * @event input-change

@@ -36,7 +36,7 @@ Primary.args = {
       "Logan",
       "Adam",
       "Carl",
-      "Pillip",
+      "Phillip",
       "Alexa",
       "Judy",
       "Justin",
