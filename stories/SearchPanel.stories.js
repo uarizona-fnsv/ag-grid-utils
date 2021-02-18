@@ -7,7 +7,7 @@ import ColumnFilterSet from "../src/components/ColumnFilterSet.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 
 export default {
-  title: "Components/SearchPanel",
+  title: "Panels/SearchPanel",
   component: SearchPanel,
 }
 

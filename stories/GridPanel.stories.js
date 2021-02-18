@@ -7,7 +7,7 @@ import GridPanel from "../src/components/GridPanel.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 
 export default {
-  title: "Components/GridPanel",
+  title: "Panels/GridPanel",
   component: GridPanel,
 }
 

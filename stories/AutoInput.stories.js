@@ -2,7 +2,7 @@ import AutoInput from "../src/components/AutoInput.vue"
 import * as AutocompleteStories from "./Autocomplete.stories"
 
 export default {
-  title: "Components/AutoInput",
+  title: "Support/AutoInput",
   component: AutoInput,
   argTypes: {
     value: {

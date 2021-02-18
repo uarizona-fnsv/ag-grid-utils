@@ -1,7 +1,7 @@
 import ErrorAlert from "../src/components/ErrorAlert.vue"
 
 export default {
-  title: "Components/ErrorAlert",
+  title: "Support/ErrorAlert",
   component: ErrorAlert,
 }
 

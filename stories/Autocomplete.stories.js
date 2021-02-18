@@ -1,7 +1,7 @@
 import Autocomplete from "../src/components/Autocomplete.vue"
 
 export default {
-  title: "Components/Autocomplete",
+  title: "Support/Autocomplete",
   component: Autocomplete,
   argTypes: {
     value: {

@@ -6,7 +6,7 @@ import ColumnFilter from "../src/components/ColumnFilter.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 
 export default {
-  title: "Components/ColumnFilter",
+  title: "Filters/ColumnFilter",
   component: ColumnFilter,
 }
 
