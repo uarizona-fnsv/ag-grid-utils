@@ -1,24 +1,20 @@
 # ag-grid-utils
 
-## Project setup
+:book: [Documentation](https://uarizona-fnsv.github.io/ag-grid-utils)
+
+Utilities & Vue components for pairing ag-Grid with Django Rest Framework.
+
+# Getting Started
+
+Run Storybook:
+
 ```
 npm install
+npm run storybook
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Check type safety:
 
-### Compiles and minifies for production
 ```
-npm run build
+npm run check
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
