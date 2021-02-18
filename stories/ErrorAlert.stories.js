@@ -47,14 +47,23 @@ BadRequest.args = {
   error: badRequestError,
 }
 
-export const MissingFields = Template.bind({})
-const missingFieldsError = new Error("Missing Fields")
+export const PasswordRequirements = Template.bind({})
+const passwordError = new Error("Password Failed Requirements")
 // @ts-ignore
-missingFieldsError.response = {
-  data: ["maximum", "minimum", "mean"],
+passwordError.response = {
+  data: [
+    "Exactly 31 characters",
+    "At least one uppercase Latin letter",
+    "At least one lowercase Greek letter",
+    "At least one cuneiform glyph",
+    "At least one traffic sign emoji",
+    "Must contain your first name in Morse code",
+    "Must not contain the word “Voldemort”",
+    //https://twitter.com/rauschma/status/1362132390232096772?s=20
+  ],
 }
-MissingFields.args = {
-  error: missingFieldsError,
+PasswordRequirements.args = {
+  error: passwordError,
 }
 
 export const PermissionDenied = Template.bind({})
