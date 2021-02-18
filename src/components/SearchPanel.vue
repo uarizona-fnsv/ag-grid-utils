@@ -136,9 +136,9 @@ import { cloneDeep, debounce } from "lodash"
 import CollapseCard from "./CollapseCard.vue"
 import GridPanel from "./GridPanel.vue"
 import AutoInput from "./AutoInput.vue"
-import ErrorAlert from "./ErrorAlert"
-import SearchIcon from "./icons/SearchIcon"
-import FilterIcon from "./icons/FilterIcon"
+import ErrorAlert from "./ErrorAlert.vue"
+import SearchIcon from "./icons/SearchIcon.vue"
+import FilterIcon from "./icons/FilterIcon.vue"
 
 export default {
   name: "PanelSearch",
