@@ -1,4 +1,5 @@
 import ErrorAlert from "../src/components/ErrorAlert.vue"
+import { action } from "@storybook/addon-actions"
 
 export default {
   title: "Support/ErrorAlert",
@@ -9,7 +10,7 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { ErrorAlert },
   template: `
-    <ErrorAlert v-bind="$props" v-if="showError" @close="toggleError" />
+    <ErrorAlert v-bind="$props" v-if="showError" @close="onClose" />
   `,
   data() {
     return {
@@ -17,10 +18,7 @@ const Template = (args, { argTypes }) => ({
     }
   },
   methods: {
-    toggleError() {
-      this.showError = false
-      setTimeout(() => (this.showError = true), 1000)
-    },
+    onClose: action("close"),
   },
 })
 
