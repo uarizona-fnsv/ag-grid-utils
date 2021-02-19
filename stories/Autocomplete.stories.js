@@ -1,27 +1,35 @@
+import { action } from "@storybook/addon-actions"
 import Autocomplete from "../src/components/Autocomplete.vue"
 
 export default {
   title: "Support/Autocomplete",
   component: Autocomplete,
-  argTypes: {
-    value: {
-      table: {
-        disable: true,
-      },
-    },
-  },
 }
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes).filter(x => x !== "value" && x !== "focus"),
+  props: Object.keys(argTypes),
   components: { Autocomplete },
   template: `<div class="form-group">
-    <label>Team Members</label>
-    <input list="auto" class="form-control" autocomplete="off" @focus="focus=true" />
-    <Autocomplete v-bind="$props" :value="value" id="auto" :focus="focus" />
+    <Autocomplete v-bind="$props" id="auto">
+      <template #default="{ blankOption, options }">
+      <ul class="list-group">
+        <li
+          v-if="blankOption" 
+          class="list-group-item
+          list-group-item-action"
+          @click="onSelect('(Blanks)')"
+          >Blanks</li>
+          <li
+            v-for="option in options"
+            @click="onSelect(option)"
+            class="list-group-item list-group-item-action"
+          >{{ option }}</li>
+        </ul>
+      </template>
+    </Autocomplete>
   </div>`,
-  data() {
-    return { value: "", focus: false }
+  methods: {
+    onSelect: action("selected"),
   },
 })
 
@@ -47,6 +55,7 @@ Primary.args = {
     return all.filter(x => x.toLowerCase().includes(value.toLowerCase()))
   },
   id: "auto",
-  blankOption: false,
+  delayFetch: false,
+  blankOption: true,
 }
 Primary.storyName = "Autocomplete"
