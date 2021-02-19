@@ -1,0 +1,14 @@
+name: Test
+on:
+  pull_request:
+    types: [opened, synchronized, reopened]
+
+jobs:
+  cypress-run:
+    name: 🔎 Integration Tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2

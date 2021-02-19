@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
-const baseUrl = "http://localhost:6006/iframe.html?id=support-autoinput--"
+const basePath = "/iframe.html?id=support-autoinput--"
 
 context("String", () => {
   beforeEach(() => {
-    cy.visit(baseUrl + "string")
+    cy.visit(basePath + "string")
   })
 
   it("accepts a value", () => {
@@ -37,7 +37,7 @@ context("String", () => {
 
 context("Multistring", () => {
   beforeEach(() => {
-    cy.visit(baseUrl + "multistring")
+    cy.visit(basePath + "multistring")
   })
 
   it("accepts a value", () => {
@@ -66,7 +66,7 @@ context("Multistring", () => {
 
 context("Number", () => {
   beforeEach(() => {
-    cy.visit(baseUrl + "number")
+    cy.visit(basePath + "number")
   })
 
   it("accepts a value", () => {
@@ -87,7 +87,7 @@ context("Number", () => {
 
 context("Date", () => {
   beforeEach(() => {
-    cy.visit(baseUrl + "date")
+    cy.visit(basePath + "date")
   })
 
   it("accepts a value", () => {

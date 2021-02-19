@@ -12,7 +12,8 @@
     "check": "tsc -p tsconfig.json",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "cypress:open": "cypress open"
+    "cy": "cypress open",
+    "cy:run": "cypress run"
   },
   "files": [
     "/src"
