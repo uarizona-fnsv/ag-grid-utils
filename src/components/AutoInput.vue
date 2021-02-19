@@ -43,7 +43,7 @@
         @blur="focus = false"
         @keypress="$emit('keypress', $event)"
       />
-      <div class="input-group-append">
+      <div v-if="clearable" class="input-group-append">
         <button
           class="btn btn-outline-secondary"
           type="button"
@@ -94,8 +94,10 @@ export default {
     pattern: { type: String, default: null },
     /** Function returning autocomplete options. String fields only. */
     getOptions: { type: Function, default: null },
-    /** Whether to allow many vaues delimited by semicolons */
+    /** Allow many vaues delimited by semicolons */
     many: { type: Boolean, default: false },
+    /** Display button to clear input  */
+    clearable: { type: Boolean, default: false },
   },
   data() {
     return {

@@ -44,6 +44,7 @@ string.args = {
   type: "string",
   getOptions: AutocompleteStories.Primary.args.getOptions,
   title: "Team Members",
+  clearable: true,
   pattern: "\\w*",
 }
 
@@ -54,6 +55,7 @@ multistring.args = {
   getOptions: AutocompleteStories.Primary.args.getOptions,
   title: "Team Members",
   pattern: "\\w*",
+  clearable: true,
   many: true,
 }
 
@@ -62,6 +64,7 @@ number.args = {
   id: "answer_to_life_the_universe_and_everything",
   type: "number",
   title: "The Answer To Life The Universe And Everything",
+  clearable: true,
 }
 
 export const date = Template.bind({})
@@ -69,4 +72,5 @@ date.args = {
   id: "today",
   type: "date",
   title: "Today's Date",
+  clearable: true,
 }

@@ -12,6 +12,8 @@
         :type="params.colDef.__metadata__.type"
         :col="params.colDef"
         :get-options="getOptionsPartial"
+        :many="true"
+        :clearable="true"
         @keypress.enter="submit"
       ></AutoInput>
     </div>
