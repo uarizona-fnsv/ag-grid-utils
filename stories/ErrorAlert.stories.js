@@ -1,5 +1,5 @@
-import ErrorAlert from "../src/components/ErrorAlert.vue"
 import { action } from "@storybook/addon-actions"
+import ErrorAlert from "../src/components/ErrorAlert.vue"
 
 export default {
   title: "Support/ErrorAlert",

@@ -1,3 +1,4 @@
+import { action } from "@storybook/addon-actions"
 import AutoInput from "../src/components/AutoInput.vue"
 import * as AutocompleteStories from "./Autocomplete.stories"
 
@@ -20,10 +21,20 @@ const Template = (args, { argTypes }) => ({
   },
   components: { AutoInput },
   template: `
-  <form className="form-group">
+  <form className="form-group" @submit.prevent>
     <label>{{title}}</label>
-    <AutoInput v-bind="$props" v-model="value" />
+    <AutoInput
+      v-bind="$props"
+      v-model="value"
+      @input="onAction('input', $event)"
+      @change="onAction('change', $event)"
+      />
   </form>`,
+  methods: {
+    onAction(type, value) {
+      action(type)(value)
+    },
+  },
 })
 
 export const string = Template.bind({})
