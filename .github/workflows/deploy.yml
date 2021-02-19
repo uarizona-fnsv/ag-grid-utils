@@ -19,7 +19,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm ci
+      - run: CYPRESS_INSTALL_BINARY=0 npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_READ_TOKEN }}
       - run: npm publish
@@ -41,10 +41,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm ci
+      - run: CYPRESS_INSTALL_BINARY=0 npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_READ_TOKEN }}
-      - run: npm run build
+      - run: npm run build-storybook
       - name: Deploy Docs 📖
         uses: peaceiris/actions-gh-pages@v3
         with:
