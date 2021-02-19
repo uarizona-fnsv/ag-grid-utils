@@ -22,14 +22,15 @@ const Template = (args, { argTypes }) => ({
   components: { AutoInput },
   template: `
   <form className="form-group" @submit.prevent>
-    <label>{{ title }}</label>
     <AutoInput
       v-bind="$props"
       v-model="value"
       @input="onAction('input', $event)"
       @change="onAction('change', $event)"
     />
-    <pre class="mt-3 p-2 bg-dark text-white rounded"><code>{{ JSON.stringify(value) }}</code></pre>
+    <pre
+      class="mt-3 p-2 bg-dark text-white rounded"
+    ><code id="json">{{ JSON.stringify(value) }}</code></pre>
   </form>`,
   methods: {
     onAction(type, value) {
@@ -43,9 +44,9 @@ string.args = {
   id: "name",
   type: "string",
   getOptions: AutocompleteStories.Primary.args.getOptions,
-  title: "Team Members",
   clearable: true,
   pattern: "\\w*",
+  delayOptions: false,
 }
 
 export const multistring = Template.bind({})
@@ -53,24 +54,24 @@ multistring.args = {
   id: "name",
   type: "string",
   getOptions: AutocompleteStories.Primary.args.getOptions,
-  title: "Team Members",
   pattern: "\\w*",
   clearable: true,
   many: true,
+  delayOptions: false,
 }
 
 export const number = Template.bind({})
 number.args = {
   id: "answer_to_life_the_universe_and_everything",
   type: "number",
-  title: "The Answer To Life The Universe And Everything",
   clearable: true,
+  delayOptions: false,
 }
 
 export const date = Template.bind({})
 date.args = {
   id: "today",
   type: "date",
-  title: "Today's Date",
   clearable: true,
+  delayOptions: false,
 }

@@ -61,6 +61,7 @@
       :value="stringValue"
       :get-options="getOptions"
       :focus="focus"
+      :delay-fetch="delayOptions"
     ></Autocomplete>
   </div>
 </template>
@@ -89,11 +90,11 @@ export default {
     /** Current value; compatible with v-model */
     value: { type: [String, Array], required: true },
     /** Title text to show on hover */
-    title: { type: String, default: null },
-    /** Regex pattern for validation */
     pattern: { type: String, default: null },
     /** Function returning autocomplete options. String fields only. */
     getOptions: { type: Function, default: null },
+    /** Whether autocomplete should fetch on mount or wait for input focus. */
+    delayOptions: { type: Boolean, default: true },
     /** Allow many vaues delimited by semicolons */
     many: { type: Boolean, default: false },
     /** Display button to clear input  */
