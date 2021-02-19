@@ -95,7 +95,7 @@ export default {
     /** Function returning autocomplete options. String fields only. */
     getOptions: { type: Function, default: null },
     /** Whether to allow many vaues delimited by semicolons */
-    many: { type: Boolean, default: true },
+    many: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -111,11 +111,24 @@ export default {
       return this.pattern && `^${this.pattern}(;${this.pattern})*$`
     },
   },
+  watch: {
+    $props: {
+      immediate: true,
+      handler() {
+        const stringValue = typeof this.value === "string"
+        if (this.stringValue === this.many) {
+          console.log("Invalid props: value type must match many prop.")
+        }
+      },
+    },
+  },
   methods: {
     emitValue(event) {
       let { value } = event.target
-      // Allow multiple values separated by semicolons
-      value = value.split(";")
+      if (this.many) {
+        // Allow multiple values separated by semicolons
+        value = value.split(";")
+      }
       /**
        * Always emits an array on change and input.
        * @event input-change

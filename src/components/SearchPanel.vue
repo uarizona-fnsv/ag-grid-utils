@@ -78,6 +78,7 @@
                   :pattern="col.__metadata__.pattern"
                   :type="col.__metadata__.type"
                   :title="col.__metadata__.title || ''"
+                  :many="true"
                   :aria-describedby="col.field"
                   @input="setParam(col, $event)"
                   @change="setParam(col, $event)"

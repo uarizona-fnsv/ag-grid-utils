@@ -17,18 +17,19 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes).filter(x => x !== "value"),
   data() {
-    return { value: "" }
+    return { value: args.many ? [""] : "" }
   },
   components: { AutoInput },
   template: `
   <form className="form-group" @submit.prevent>
-    <label>{{title}}</label>
+    <label>{{ title }}</label>
     <AutoInput
       v-bind="$props"
       v-model="value"
       @input="onAction('input', $event)"
       @change="onAction('change', $event)"
-      />
+    />
+    <pre class="mt-3 p-2 bg-dark text-white rounded"><code>{{ JSON.stringify(value) }}</code></pre>
   </form>`,
   methods: {
     onAction(type, value) {
@@ -44,6 +45,16 @@ string.args = {
   getOptions: AutocompleteStories.Primary.args.getOptions,
   title: "Team Members",
   pattern: "\\w*",
+}
+
+export const multistring = Template.bind({})
+multistring.args = {
+  id: "name",
+  type: "string",
+  getOptions: AutocompleteStories.Primary.args.getOptions,
+  title: "Team Members",
+  pattern: "\\w*",
+  many: true,
 }
 
 export const number = Template.bind({})
