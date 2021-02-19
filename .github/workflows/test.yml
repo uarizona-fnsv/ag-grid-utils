@@ -1,14 +1,37 @@
 name: Test
-on:
-  pull_request:
-    types: [opened, synchronized, reopened]
+on: pull_request
 
 jobs:
   cypress-run:
-    name: 🔎 Integration Tests
+    name: 🔎 Cypress Tests
     runs-on: ubuntu-20.04
+    env:
+      # prevents extra Cypress installation progress messages
+      CI: 1
+      # avoid warnings like "tput: No value for $TERM and no -T specified"
+      TERM: xterm
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12.x"
+          registry-url: https://npm.pkg.github.com/
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GPR_READ_TOKEN }}
+      - run: npx cypress info
       - name: Cypress run
         uses: cypress-io/github-action@v2
+        with:
+          install: false
+          start: npm run storybook -- --quiet --ci
+          browser: firefox # chrome fails with SIGSEGV
+          wait-on: "http://localhost:6006"
