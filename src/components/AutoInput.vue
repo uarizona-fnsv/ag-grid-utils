@@ -8,6 +8,7 @@
         type="number"
         class="form-control"
         v-bind="$props"
+        data-cy="ai-input"
         @input="emitValue"
         @change="emitValue"
         @focus="focus = true"
@@ -21,6 +22,7 @@
         type="date"
         class="form-control"
         v-bind="$props"
+        data-cy="ai-input"
         @input="emitValue"
         @change="emitValue"
         @focus="focus = true"
@@ -37,6 +39,7 @@
         class="form-control"
         :pattern="repeatingPattern"
         v-bind="$props"
+        data-cy="ai-input"
         @input="emitValue"
         @change="emitValue"
         @focus="focus = true"
@@ -49,6 +52,7 @@
           type="button"
           aria-label="Clear input"
           title="Clear input"
+          data-cy="ai-clear"
           @click="clear"
         >
           <span class="close">&times;</span>
