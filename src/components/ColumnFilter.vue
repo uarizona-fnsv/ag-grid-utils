@@ -29,7 +29,7 @@ export default {
   directives: { ObserveVisibility },
   data() {
     return {
-      value: "",
+      value: [""],
     }
   },
   computed: {
