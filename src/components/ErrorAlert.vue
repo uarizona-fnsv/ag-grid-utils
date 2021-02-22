@@ -10,7 +10,7 @@
 
         <pre
           v-if="parsed.pre"
-          class="m-0 overflow-auto"
+          class="m-0 overflow-auto p-3"
           style="line-height: 1em;"
           v-text="parsed.pre"
         ></pre>

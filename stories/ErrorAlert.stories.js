@@ -73,3 +73,22 @@ permissionError.response = {
 PermissionDenied.args = {
   error: permissionError,
 }
+
+export const StackTrace = Template.bind({})
+const stackError = new Error("500 Internal Server Error")
+// @ts-ignore
+stackError.response = {
+  data: `ZeroDivisionError: division by zero
+File "django/core/handlers/exception.py", line 34, in inner
+  response = get_response(request)
+File "django/core/handlers/base.py", line 115, in _get_response
+  response = self.process_exception_by_middleware(e, request)
+File "django/core/handlers/base.py", line 113, in _get_response
+  response = wrapped_callback(request, *callback_args, **callback_kwargs)
+File "config/urls.py", line 13, in trigger_error
+  divide_by_zero = 1/0
+`,
+}
+StackTrace.args = {
+  error: stackError,
+}
