@@ -9,21 +9,6 @@ import axios from "axios"
  */
 
 /**
- * Callback for responding to an error when fetching rows.
- * @callback errorCallback
- * @param {Error} error
- * @param {Object} gridApi
- */
-
-/**
- * Callback for accessing fetched rows before they are passed to the grid.
- * @callback rowsCallback
- * @param {Error} rows - Rows fetched from api
- * @param {Object} gridApi
- * @returns {Object[]} Rows to add to grid
- */
-
-/**
  * @property {Object} defaultParams: options.defaultParams || {},
  * @property {Object} params: {},
  * @property {Object} filters: {},
