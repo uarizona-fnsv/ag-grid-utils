@@ -11,7 +11,7 @@ context("Primary", () => {
       .as("menu")
       .click()
 
-    cy.get("[data-cy=ai-input]")
+    cy.grab("ai-input")
       .as("filter")
       .type("Phelps{enter}")
     cy.get("@filter").should("not.exist")
@@ -22,7 +22,7 @@ context("Primary", () => {
     cy.get("@menu").click()
     cy.get("@filter").should("have.value", "Phelps")
 
-    cy.get("[data-cy=ai-clear]").click()
+    cy.grab("ai-clear").click()
     cy.get("@filter").should("have.value", "")
     cy.get(".ag-center-cols-container .ag-row")
       .find("[col-id=athlete]")
