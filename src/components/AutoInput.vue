@@ -119,8 +119,10 @@ export default {
       immediate: true,
       handler() {
         const stringValue = typeof this.value === "string"
-        if (this.stringValue === this.many) {
-          console.log("Invalid props: value type must match many prop.")
+        if (stringValue === this.many) {
+          console.warn(
+            "Invalid props: value prop type must match the many prop.",
+          )
         }
       },
     },
