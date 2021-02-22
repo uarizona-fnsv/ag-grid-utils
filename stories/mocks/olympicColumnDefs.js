@@ -27,6 +27,7 @@ export default [
     headerName: "Date",
     field: "date",
     width: 145,
+    columnGroupShow: "open",
     __metadata__: { type: "date" },
   },
   {
@@ -36,27 +37,32 @@ export default [
     __metadata__: { type: "string" },
   },
   {
-    headerName: "Gold",
-    field: "gold",
-    width: 100,
-    __metadata__: { type: "number" },
-  },
-  {
-    headerName: "Silver",
-    field: "silver",
-    width: 100,
-    __metadata__: { type: "number" },
-  },
-  {
-    headerName: "Bronze",
-    field: "bronze",
-    width: 100,
-    __metadata__: { type: "number" },
-  },
-  {
-    headerName: "Total",
-    field: "total",
-    width: 100,
-    __metadata__: { type: "number" },
+    headerName: "Medals",
+    children: [
+      {
+        headerName: "Gold",
+        field: "gold",
+        width: 100,
+        __metadata__: { type: "number" },
+      },
+      {
+        headerName: "Silver",
+        field: "silver",
+        width: 100,
+        __metadata__: { type: "number" },
+      },
+      {
+        headerName: "Bronze",
+        field: "bronze",
+        width: 100,
+        __metadata__: { type: "number" },
+      },
+      {
+        headerName: "Total",
+        field: "total",
+        width: 100,
+        __metadata__: { type: "number" },
+      },
+    ],
   },
 ]
