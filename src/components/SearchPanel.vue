@@ -1,5 +1,5 @@
 <template>
-  <GridPanel v-observe-visibility="onVisibility" :grid-params="params">
+  <GridPanel v-observe-visibility="onVisibility">
     <template #title>
       <h4 class="m-0">Search</h4>
     </template>

@@ -15,7 +15,7 @@ export const Standalone = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { GridPanel },
   template: `
-      <GridPanel :grid-params="params">
+      <GridPanel>
         <template v-slot:title>
           <h5 class="m-0">Custom</h5>
         </template>
