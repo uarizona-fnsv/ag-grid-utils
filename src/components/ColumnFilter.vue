@@ -54,7 +54,7 @@ export default {
       const datasourceValue = this.datasource.getFilter(field)
       if (visible) {
         this.value = datasourceValue?.raw || ""
-      } else if (this.value !== datasourceValue?.raw) {
+      } else if (this.value[0] !== datasourceValue?.raw[0]) {
         this.submit()
       }
     },
