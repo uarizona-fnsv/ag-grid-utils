@@ -1,4 +1,3 @@
-const basePath = "/iframe.html?id=support-autoinput--"
 context("AutoInput", () => {
   before(() => {
     cy.visitStorybook()
