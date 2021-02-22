@@ -56,7 +56,7 @@ multistring.args = {
   getOptions: AutocompleteStories.Primary.args.getOptions,
   pattern: "\\w*",
   clearable: true,
-  many: true,
+  multi: true,
   delayOptions: false,
 }
 
