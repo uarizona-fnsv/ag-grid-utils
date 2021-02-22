@@ -1,112 +1,105 @@
-context("AutoInput", () => {
-  before(() => {
-    cy.visitStorybook()
-  })
-  context("String", () => {
-    beforeEach(() => {
-      cy.loadStory("Support/AutoInput", "String")
-    })
+const basePath = "/iframe.html?id=support-autoinput--"
 
-    it("accepts a value", () => {
-      cy.get("input")
-        .type("crazier than a road lizard")
-        .blur()
-        .should("have.value", "crazier than a road lizard")
-      cy.get("#json").should("have.text", `"crazier than a road lizard"`)
-    })
-
-    it("validates input", () => {
-      cy.get("input")
-        .type("cr@z!3r 7h@n @ ro@d l!z@rd")
-        .blur()
-      cy.get("form").then(
-        $form => expect($form[0].reportValidity()).to.be.false,
-      )
-    })
-
-    it("clears the input", () => {
-      cy.get("input").type("hello world this is a test")
-      cy.get("button").click()
-      cy.get("input").should("have.value", "")
-      cy.get("#json").should("have.text", `""`)
-    })
-
-    it("provides autocomplete suggestions", () => {
-      cy.get("input").focus()
-      cy.get("datalist option").should("have.length.greaterThan", 0)
-    })
+context("String", () => {
+  beforeEach(() => {
+    cy.visit(basePath + "string")
   })
 
-  context("Multistring", () => {
-    beforeEach(() => {
-      cy.loadStory("Support/AutoInput", "Multistring")
-    })
-
-    it("accepts a value", () => {
-      const value = ["crazier", "than", "a", "road", "lizard"]
-      cy.get("input")
-        .type(value.join(";"))
-        .blur()
-        .should("have.value", value.join(";"))
-      cy.get("#json").should("have.text", JSON.stringify(value))
-    })
-
-    it("validates input", () => {
-      cy.get("input")
-        .type("crazier;7h@n;a;road;l!z@rd")
-        .blur()
-      cy.get("form").then(
-        $form => expect($form[0].reportValidity()).to.be.false,
-      )
-    })
-
-    it("clears the input", () => {
-      cy.get("input").type("hello;world;this;is;a;test")
-      cy.get("button").click()
-      cy.get("input").should("have.value", "")
-      cy.get("#json").should("have.text", `[""]`)
-    })
+  it("accepts a value", () => {
+    cy.get("input")
+      .type("crazier than a road lizard")
+      .blur()
+      .should("have.value", "crazier than a road lizard")
+    cy.get("#json").should("have.text", `"crazier than a road lizard"`)
   })
 
-  context("Number", () => {
-    beforeEach(() => {
-      cy.loadStory("Support/AutoInput", "Number")
-    })
-
-    it("accepts a value", () => {
-      cy.get("input")
-        .type("42")
-        .blur()
-        .should("have.value", "42")
-      cy.get("#json").should("have.text", `"42"`)
-    })
-
-    it("clears the input", () => {
-      cy.get("input").type("42")
-      cy.get("button").click()
-      cy.get("input").should("have.value", "")
-      cy.get("#json").should("have.text", `""`)
-    })
+  it("validates input", () => {
+    cy.get("input")
+      .type("cr@z!3r 7h@n @ ro@d l!z@rd")
+      .blur()
+    cy.get("form").then($form => expect($form[0].reportValidity()).to.be.false)
   })
 
-  context("Date", () => {
-    beforeEach(() => {
-      cy.loadStory("Support/AutoInput", "Date")
-    })
+  it("clears the input", () => {
+    cy.get("input").type("hello world this is a test")
+    cy.get("button").click()
+    cy.get("input").should("have.value", "")
+    cy.get("#json").should("have.text", `""`)
+  })
 
-    it("accepts a value", () => {
-      cy.get("input")
-        .type("1993-10-13")
-        .blur()
-        .should("have.value", "1993-10-13")
-      cy.get("#json").should("have.text", `"1993-10-13"`)
-    })
+  it("provides autocomplete suggestions", () => {
+    cy.get("input").focus()
+    cy.get("datalist option").should("have.length.greaterThan", 0)
+  })
+})
 
-    it("clears the input", () => {
-      cy.get("input").type("1993-10-13")
-      cy.get("button").click()
-      cy.get("input").should("have.value", "")
-      cy.get("#json").should("have.text", `""`)
-    })
+context("Multistring", () => {
+  beforeEach(() => {
+    cy.visit(basePath + "multistring")
+  })
+
+  it("accepts a value", () => {
+    const value = ["crazier", "than", "a", "road", "lizard"]
+    cy.get("input")
+      .type(value.join(";"))
+      .blur()
+      .should("have.value", value.join(";"))
+    cy.get("#json").should("have.text", JSON.stringify(value))
+  })
+
+  it("validates input", () => {
+    cy.get("input")
+      .type("crazier;7h@n;a;road;l!z@rd")
+      .blur()
+    cy.get("form").then($form => expect($form[0].reportValidity()).to.be.false)
+  })
+
+  it("clears the input", () => {
+    cy.get("input").type("hello;world;this;is;a;test")
+    cy.get("button").click()
+    cy.get("input").should("have.value", "")
+    cy.get("#json").should("have.text", `[""]`)
+  })
+})
+
+context("Number", () => {
+  beforeEach(() => {
+    cy.visit(basePath + "number")
+  })
+
+  it("accepts a value", () => {
+    cy.get("input")
+      .type("42")
+      .blur()
+      .should("have.value", "42")
+    cy.get("#json").should("have.text", `"42"`)
+  })
+
+  it("clears the input", () => {
+    cy.get("input").type("42")
+    cy.get("button").click()
+    cy.get("input").should("have.value", "")
+    cy.get("#json").should("have.text", `""`)
+  })
+})
+
+context("Date", () => {
+  beforeEach(() => {
+    cy.visit(basePath + "date")
+  })
+
+  it("accepts a value", () => {
+    cy.get("input")
+      .type("1993-10-13")
+      .blur()
+      .should("have.value", "1993-10-13")
+    cy.get("#json").should("have.text", `"1993-10-13"`)
+  })
+
+  it("clears the input", () => {
+    cy.get("input").type("1993-10-13")
+    cy.get("button").click()
+    cy.get("input").should("have.value", "")
+    cy.get("#json").should("have.text", `""`)
   })
 })
