@@ -62,12 +62,8 @@
         </div>
 
         <!-- Columns without groups -->
-        <template v-for="col in soloColumns">
-          <div
-            v-if="col.__metadata__.type"
-            :key="col.headerName"
-            class="form-group"
-          >
+        <template v-for="{ __metadata__: meta, ...col } in soloColumns">
+          <div v-if="meta.type" :key="col.headerName" class="form-group">
             <label class="mb-1" :for="col.field"> {{ col.headerName }}: </label>
             <template>
               <div class="d-flex">
@@ -75,10 +71,10 @@
                   :id="col.field + '-panel'"
                   :col="col"
                   :value="getParamAttr(col.field, 'raw')"
-                  :pattern="col.__metadata__.pattern"
-                  :type="col.__metadata__.type"
-                  :title="col.__metadata__.title || ''"
-                  :many="true"
+                  :pattern="meta.pattern"
+                  :type="meta.type"
+                  :title="meta.title || ''"
+                  :multi="true"
                   :clearable="true"
                   :aria-describedby="col.field"
                   @input="setParam(col, $event)"
@@ -99,12 +95,8 @@
           class="card mb-2"
           @click="collapse[group.headerName] = !collapse[group.headerName]"
         >
-          <template v-for="col in group.children">
-            <div
-              v-if="col.__metadata__.type"
-              :key="col.headerName"
-              class="form-group"
-            >
+          <template v-for="{ __metadata__: meta, ...col } in group.children">
+            <div v-if="meta.type" :key="col.headerName" class="form-group">
               <label class="mb-1" :for="col.field">
                 {{ col.headerName }}:
               </label>
@@ -114,9 +106,9 @@
                     :id="col.field + '-panel'"
                     :col="col"
                     :value="getParamAttr(col.field, 'raw')"
-                    :pattern="col.__metadata__.pattern"
-                    :type="col.__metadata__.type"
-                    :title="col.__metadata__.title"
+                    :pattern="meta.pattern"
+                    :type="meta.type"
+                    :title="meta.title"
                     :aria-describedby="col.field"
                     @input="setParam(col, $event)"
                     @change="setParam(col, $event)"
@@ -230,9 +222,9 @@ export default {
       this.filters = {}
       this.submit()
     },
-    getParamAttr(field, attr, fallback = "") {
+    getParamAttr(field, attr) {
       field = field.replace(".", "__")
-      return this.filters[field] ? this.filters[field][attr] : fallback
+      return this.filters[field] ? this.filters[field][attr] : [""]
     },
     /** Store search params as an object of key, Django lookup, and value */
     setParam(col, value) {

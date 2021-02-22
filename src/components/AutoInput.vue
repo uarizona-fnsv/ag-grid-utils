@@ -96,7 +96,7 @@ export default {
     /** Whether autocomplete should fetch on mount or wait for input focus. */
     delayOptions: { type: Boolean, default: true },
     /** Allow many vaues delimited by semicolons */
-    many: { type: Boolean, default: false },
+    multi: { type: Boolean, default: false },
     /** Display button to clear input  */
     clearable: { type: Boolean, default: false },
   },
@@ -110,7 +110,7 @@ export default {
       return Array.isArray(this.value) ? this.value.join(";") : this.value
     },
     repeatingPattern() {
-      if (!this.many) return this.pattern
+      if (!this.multi) return this.pattern
       return this.pattern && `^${this.pattern}(;${this.pattern})*$`
     },
   },
@@ -119,9 +119,10 @@ export default {
       immediate: true,
       handler() {
         const stringValue = typeof this.value === "string"
-        if (stringValue === this.many) {
+        if (stringValue === this.multi) {
           console.warn(
-            "Invalid props: value prop type must match the many prop.",
+            "Invalid props: value prop type must match the multi prop.",
+            { ...this.$props },
           )
         }
       },
@@ -130,7 +131,7 @@ export default {
   methods: {
     emitValue(event) {
       let { value } = event.target
-      if (this.many) {
+      if (this.multi) {
         // Allow multiple values separated by semicolons
         value = value.split(";")
       }
