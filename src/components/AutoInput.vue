@@ -76,7 +76,9 @@ import Autocomplete from "./Autocomplete.vue"
 /**
  * A text input with autocomplete and multi-value support.
  *
- * Multiple values can be separated by semicolons.
+ * Multiple values can be separated by semicolons when `multi` is true.
+ *
+ * Emits events for use with `v-model`.
  */
 export default {
   components: {
