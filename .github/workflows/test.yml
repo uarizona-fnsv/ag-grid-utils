@@ -35,3 +35,10 @@ jobs:
           start: npm run storybook -- --quiet --ci
           browser: firefox # chrome fails with SIGSEGV
           wait-on: "http://localhost:6006"
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-captures
+          path: |
+            cypress/screenshots/
+            cypress/videos/
