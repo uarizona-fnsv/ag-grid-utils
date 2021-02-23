@@ -1,8 +1,10 @@
-const basePath = "/iframe.html?id=filters-columnfilter--"
-
 context("Primary", () => {
+  before(() => {
+    cy.visitStorybook()
+  })
+
   beforeEach(() => {
-    cy.visit(basePath + "primary")
+    cy.loadStory("Filters/ColumnFilter", "Primary")
   })
 
   it("filters the grid", () => {
@@ -31,5 +33,15 @@ context("Primary", () => {
     cy.get(".ag-center-cols-container .ag-row")
       .find("[col-id=athlete]")
       .should("to.have.length.greaterThan", 3)
+  })
+
+  it("works", () => {
+    cy.get(".ag-header-cell[col-id=athlete] .ag-header-icon")
+      .first()
+      .as("menu")
+      .click()
+
+    // Submits & closes on enter
+    cy.grab("ai-input").should("have.value", "")
   })
 })
