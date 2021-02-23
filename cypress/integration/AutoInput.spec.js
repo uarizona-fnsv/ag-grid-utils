@@ -1,9 +1,11 @@
-const basePath = "/iframe.html?id=support-autoinput--"
-
-context("String", () => {
-  beforeEach(() => {
-    cy.visit(basePath + "string")
+context("AutoInput", () => {
+  before(() => {
+    cy.visitStorybook()
   })
+  context("String", () => {
+    beforeEach(() => {
+      cy.loadStory("Support/AutoInput", "String")
+    })
 
   it("accepts a value", () => {
     cy.grab("ai-input")
@@ -31,12 +33,11 @@ context("String", () => {
     cy.grab("ai-input").focus()
     cy.get("datalist option").should("have.length.greaterThan", 0)
   })
-})
 
-context("Multistring", () => {
-  beforeEach(() => {
-    cy.visit(basePath + "multistring")
-  })
+  context("Multistring", () => {
+    beforeEach(() => {
+      cy.loadStory("Support/AutoInput", "Multistring")
+    })
 
   it("accepts a value", () => {
     const value = ["crazier", "than", "a", "road", "lizard"]
@@ -60,12 +61,11 @@ context("Multistring", () => {
     cy.grab("ai-input").should("have.value", "")
     cy.get("#json").should("have.text", `[""]`)
   })
-})
 
-context("Number", () => {
-  beforeEach(() => {
-    cy.visit(basePath + "number")
-  })
+  context("Number", () => {
+    beforeEach(() => {
+      cy.loadStory("Support/AutoInput", "Number")
+    })
 
   it("accepts a value", () => {
     cy.grab("ai-input")
@@ -81,12 +81,11 @@ context("Number", () => {
     cy.grab("ai-input").should("have.value", "")
     cy.get("#json").should("have.text", `""`)
   })
-})
 
-context("Date", () => {
-  beforeEach(() => {
-    cy.visit(basePath + "date")
-  })
+  context("Date", () => {
+    beforeEach(() => {
+      cy.loadStory("Support/AutoInput", "Date")
+    })
 
   it("accepts a value", () => {
     cy.grab("ai-input")
