@@ -34,14 +34,4 @@ context("Primary", () => {
       .find("[col-id=athlete]")
       .should("to.have.length.greaterThan", 3)
   })
-
-  it("works", () => {
-    cy.get(".ag-header-cell[col-id=athlete] .ag-header-icon")
-      .first()
-      .as("menu")
-      .click()
-
-    // Submits & closes on enter
-    cy.grab("ai-input").should("have.value", "")
-  })
 })

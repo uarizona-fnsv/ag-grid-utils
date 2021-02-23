@@ -17,7 +17,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes).filter(x => x !== "value"),
   data() {
-    return { value: args.many ? [""] : "" }
+    return { value: args.multi ? [""] : "" }
   },
   components: { AutoInput },
   template: `
