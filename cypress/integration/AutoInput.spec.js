@@ -8,33 +8,25 @@ context("AutoInput", () => {
       cy.loadStory("Support/AutoInput", "String")
     })
 
-    it("accepts a value", () => {
+    it("validates value and provides suggestions", () => {
       cy.grab("ai-input")
-        .type("crazier than a road lizard")
-        .blur()
-        .should("have.value", "crazier than a road lizard")
-      cy.get("#json").should("have.text", `"crazier than a road lizard"`)
-    })
-
-    it("validates input", () => {
+        .as("input")
+        .focus()
+      cy.get("datalist option").should("have.length.greaterThan", 0)
       cy.grab("ai-input")
-        .type("cr@z!3r 7h@n @ ro@d l!z@rd")
+        .type("Ju")
         .blur()
-      cy.get("form").then(
-        $form => expect($form[0].reportValidity()).to.be.false,
-      )
-    })
-
-    it("clears the input", () => {
-      cy.grab("ai-input").type("hello world this is a test")
+        .should("have.value", "Ju")
+        .then($input => expect($input[0].validity.valid).to.be.true)
+      cy.storyAction("change").should("be.calledWith", ["Ju"])
+      cy.get("datalist option").should("contain", "Ju")
+      cy.get("@input")
+        .type("!")
+        .blur()
+        .then($input => expect($input[0].validity.valid).to.be.false)
       cy.grab("ai-clear").click()
       cy.grab("ai-input").should("have.value", "")
-      cy.get("#json").should("have.text", `""`)
-    })
-
-    it("provides autocomplete suggestions", () => {
-      cy.grab("ai-input").focus()
-      cy.get("datalist option").should("have.length.greaterThan", 0)
+      cy.storyAction("change").should("be.calledWith", [""])
     })
   })
 
@@ -43,29 +35,22 @@ context("AutoInput", () => {
       cy.loadStory("Support/AutoInput", "Multistring")
     })
 
-    it("accepts a value", () => {
-      const value = ["crazier", "than", "a", "road", "lizard"]
+    it("validates multiple values", () => {
+      const value = ["Jason", "Dan", "Chris"]
       cy.grab("ai-input")
+        .as("input")
         .type(value.join(";"))
         .blur()
         .should("have.value", value.join(";"))
-      cy.get("#json").should("have.text", JSON.stringify(value))
-    })
-
-    it("validates input", () => {
-      cy.grab("ai-input")
-        .type("crazier;7h@n;a;road;l!z@rd")
+        .then($input => expect($input[0].validity.valid).to.be.true)
+      cy.storyAction("change").should("have.been.calledWith", [[...value]])
+      cy.get("@input")
+        .type("!@#$%^;Carl")
         .blur()
-      cy.get("form").then(
-        $form => expect($form[0].reportValidity()).to.be.false,
-      )
-    })
-
-    it("clears the input", () => {
-      cy.grab("ai-input").type("hello;world;this;is;a;test")
+        .then($input => expect($input[0].validity.valid).to.be.false)
       cy.grab("ai-clear").click()
-      cy.grab("ai-input").should("have.value", "")
-      cy.get("#json").should("have.text", `[""]`)
+      cy.get("@input").should("have.value", "")
+      cy.storyAction("change").should("have.been.calledWith", [[""]])
     })
   })
 
@@ -74,19 +59,15 @@ context("AutoInput", () => {
       cy.loadStory("Support/AutoInput", "Number")
     })
 
-    it("accepts a value", () => {
+    it("accepts and clears a value", () => {
       cy.grab("ai-input")
         .type("42")
         .blur()
         .should("have.value", "42")
-      cy.get("#json").should("have.text", `"42"`)
-    })
-
-    it("clears the input", () => {
-      cy.grab("ai-input").type("42")
+      cy.storyAction("change").should("have.been.calledWith", ["42"])
       cy.grab("ai-clear").click()
       cy.grab("ai-input").should("have.value", "")
-      cy.get("#json").should("have.text", `""`)
+      cy.storyAction("change").should("have.been.calledWith", [""])
     })
   })
 
@@ -95,19 +76,17 @@ context("AutoInput", () => {
       cy.loadStory("Support/AutoInput", "Date")
     })
 
-    it("accepts a value", () => {
+    it("accepts and clears a value", () => {
       cy.grab("ai-input")
         .type("1993-10-13")
         .blur()
         .should("have.value", "1993-10-13")
       cy.get("#json").should("have.text", `"1993-10-13"`)
-    })
-
-    it("clears the input", () => {
-      cy.grab("ai-input").type("1993-10-13")
+      cy.storyAction("change").should("have.been.calledWith", ["1993-10-13"])
       cy.grab("ai-clear").click()
       cy.grab("ai-input").should("have.value", "")
       cy.get("#json").should("have.text", `""`)
+      cy.storyAction("change").should("have.been.calledWith", [""])
     })
   })
 })
