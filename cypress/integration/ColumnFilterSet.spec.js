@@ -1,4 +1,4 @@
-context("Primary", () => {
+context("ColumnFilterSet", () => {
   before(() => {
     cy.visitStorybook()
   })
