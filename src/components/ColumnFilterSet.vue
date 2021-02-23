@@ -69,7 +69,13 @@
 <script>
 import { ObserveVisibility } from "vue-observe-visibility"
 import { truncate } from "lodash"
-
+/**
+ * Filters a column by matching any number of selected options.
+ *
+ * Option values can be provided via `filterParams.getOptions`
+ *
+ * A Blanks option can be enabled via `filterParams.blanks`
+ */
 export default {
   directives: { ObserveVisibility },
   data() {

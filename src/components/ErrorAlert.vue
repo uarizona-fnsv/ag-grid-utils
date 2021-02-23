@@ -37,6 +37,9 @@
 </template>
 
 <script>
+/**
+ * Displays errors in many formats, including DRF resonses from axios.
+ */
 export default {
   props: {
     /**

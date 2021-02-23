@@ -42,7 +42,11 @@
 <script>
 import XIcon from "./icons/XIcon"
 import MoveIcon from "./icons/MoveIcon"
-
+/**
+ * A base component for a grid panel providing basic controls.
+ *
+ * Extend this component using its slots.
+ */
 export default {
   components: { XIcon, MoveIcon },
   props: { gridParams: { type: Object, default: null } },

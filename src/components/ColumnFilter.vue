@@ -23,7 +23,13 @@
 <script>
 import AutoInput from "./AutoInput.vue"
 import { ObserveVisibility } from "vue-observe-visibility"
-
+/**
+ * Filters the a string, number, or date column with a simple text input.
+ *
+ * Autocomplete suggestions can be provided via `filterParams.getOptions`
+ *
+ * Multiple values separated by semicolons are accepted.
+ */
 export default {
   components: { AutoInput },
   directives: { ObserveVisibility },

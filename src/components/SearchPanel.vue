@@ -133,7 +133,9 @@ import AutoInput from "./AutoInput.vue"
 import ErrorAlert from "./ErrorAlert.vue"
 import SearchIcon from "./icons/SearchIcon.vue"
 import FilterIcon from "./icons/FilterIcon.vue"
-
+/**
+ * A drop-in panel which can be used to filter all columns of the grid.
+ */
 export default {
   name: "PanelSearch",
   components: {
