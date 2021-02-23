@@ -11,6 +11,7 @@ context("Primary", () => {
       .as("menu")
       .click()
 
+    // Submits & closes on enter
     cy.grab("ai-input")
       .as("filter")
       .type("Phelps{enter}")
@@ -19,27 +20,16 @@ context("Primary", () => {
       .find("[col-id=athlete]")
       .should("contain", "Phelps")
 
+    // Value is retained
     cy.get("@menu").click()
     cy.get("@filter").should("have.value", "Phelps")
 
+    // Clears value & submits on close
     cy.grab("ai-clear").click()
     cy.get("@filter").should("have.value", "")
+    cy.get(".ag-header-viewport").click() // click outside
     cy.get(".ag-center-cols-container .ag-row")
       .find("[col-id=athlete]")
       .should("to.have.length.greaterThan", 3)
-  })
-
-  it("submits on close", () => {
-    cy.get(".ag-header-cell[col-id=athlete] .ag-header-icon")
-      .first()
-      .click()
-
-    cy.get(".ag-filter input").type("Victor")
-    cy.get(".ag-header-viewport").click()
-    cy.get(".ag-filter input").should("not.exist")
-
-    cy.get(".ag-center-cols-container .ag-row")
-      .find("[col-id=athlete]")
-      .should("contain", "Victor")
   })
 })
