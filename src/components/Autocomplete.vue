@@ -17,6 +17,11 @@
 </template>
 
 <script>
+/**
+ * Displays options provided by the `getOptions` callback.
+ *
+ * By default options are presented in a datalist for use with an input.
+ */
 export default {
   props: {
     /** Datalist's id should be unique and match the input's `list` attr */
