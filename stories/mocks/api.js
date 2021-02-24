@@ -26,6 +26,7 @@ const filterFns = {
 mock.onGet(/\/olympic\/.*/).reply(config => {
   const { _limit, _offset, _search, ...filterParams } = config.params
   const filters = Object.entries(filterParams)
+  if (_search.length) console.log("Request search:", _search)
   if (filters.length) console.log("Request filters:", filterParams)
   const searchFn = row => {
     return Object.values(row).find(v => String(v).includes(_search))

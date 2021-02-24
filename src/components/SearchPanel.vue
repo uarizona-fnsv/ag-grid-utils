@@ -1,28 +1,39 @@
 <template>
-  <GridPanel v-observe-visibility="onVisibility">
+  <GridPanel v-observe-visibility="onVisibility" :grid-params="params">
     <template #title>
       <h4 class="m-0">Search</h4>
     </template>
 
     <template #extra-controls>
-      <button class="btn btn-sm btn-primary-light mr-1" @click="submit">
+      <button
+        class="btn btn-sm btn-primary-light mr-1"
+        data-cy="search-go"
+        @click="submit"
+      >
         <SearchIcon width="16" style="margin-bottom: 2px;" />
         <strong>Go</strong>
       </button>
-      <button class="btn btn-sm btn-outline-primary mr-1" @click="clearSearch">
+      <button
+        class="btn btn-sm btn-outline-primary mr-1"
+        data-cy="search-clear"
+        @click="clearSearch"
+      >
         <strong>Clear</strong>
       </button>
     </template>
 
     <template #default>
-      <form ref="form" class="p-2" @keyup.enter.prevent="submit">
+      <form ref="form" class="p-2" @submit.prevent="submit">
+        <!-- Submit type makes form submit event trigger on Enter -->
+        <input type="submit" style="display: none" />
         <div class="input-group mb-2">
           <input
-            :v-model="quickSearch"
+            v-model="quickSearch"
             type="text"
             class="form-control"
             placeholder="Quick Search"
             aria-label="Quick Search"
+            data-cy="search-quick"
           />
           <div class="input-group-append">
             <button
@@ -30,7 +41,8 @@
               type="button"
               aria-label="Clear search"
               title="Clear search"
-              @click="search = null"
+              data-cy="search-quick-clear"
+              @click="quickSearch = ''"
             >
               <span class="close">&times;</span>
             </button>
@@ -45,7 +57,7 @@
 
         <div class="my-2 text-muted d-flex align-items-center">
           <FilterIcon class="mx-2" width="16" style="flex-shrink: 0;" />
-          <span v-if="currentFilters.length">
+          <span v-if="currentFilters.length" data-cy="search-filters">
             <span
               v-for="filter in currentFilters"
               :key="filter.key"
@@ -62,8 +74,12 @@
         </div>
 
         <!-- Columns without groups -->
-        <template v-for="{ __metadata__: meta, ...col } in soloColumns">
-          <div v-if="meta.type" :key="col.headerName" class="form-group">
+        <template v-for="col in soloColumns">
+          <div
+            v-if="col.__metadata__.type"
+            :key="col.headerName"
+            class="form-group"
+          >
             <label class="mb-1" :for="col.field"> {{ col.headerName }}: </label>
             <template>
               <div class="d-flex">
@@ -71,12 +87,13 @@
                   :id="col.field + '-panel'"
                   :col="col"
                   :value="getParamAttr(col.field, 'raw')"
-                  :pattern="meta.pattern"
-                  :type="meta.type"
-                  :title="meta.title || ''"
+                  :pattern="col.__metadata__.pattern"
+                  :type="col.__metadata__.type"
+                  :title="col.__metadata__.title || ''"
                   :multi="true"
                   :clearable="true"
                   :aria-describedby="col.field"
+                  data-cy="panel-field"
                   @input="setParam(col, $event)"
                   @change="setParam(col, $event)"
                 >
@@ -89,14 +106,20 @@
         <!-- Grouped columnsS -->
         <CollapseCard
           v-for="group in columnGroups"
+          :id="'group-' + group.headerName"
           :key="group.headerName"
           :title="group.headerName"
           :collapse="collapse[group.headerName]"
           class="card mb-2"
+          data-cy="search-group"
           @click="collapse[group.headerName] = !collapse[group.headerName]"
         >
-          <template v-for="{ __metadata__: meta, ...col } in group.children">
-            <div v-if="meta.type" :key="col.headerName" class="form-group">
+          <template v-for="col in group.children">
+            <div
+              v-if="col.__metadata__.type"
+              :key="col.headerName"
+              class="form-group"
+            >
               <label class="mb-1" :for="col.field">
                 {{ col.headerName }}:
               </label>
@@ -106,10 +129,12 @@
                     :id="col.field + '-panel'"
                     :col="col"
                     :value="getParamAttr(col.field, 'raw')"
-                    :pattern="meta.pattern"
-                    :type="meta.type"
-                    :title="meta.title"
+                    :pattern="col.__metadata__.pattern"
+                    :type="col.__metadata__.type"
+                    :title="col.__metadata__.title"
                     :aria-describedby="col.field"
+                    :multi="true"
+                    data-cy="search-field"
                     @input="setParam(col, $event)"
                     @change="setParam(col, $event)"
                   >
@@ -126,7 +151,7 @@
 
 <script>
 import { ObserveVisibility } from "vue-observe-visibility"
-import { cloneDeep, debounce } from "lodash"
+import { cloneDeep } from "lodash"
 import CollapseCard from "./CollapseCard.vue"
 import GridPanel from "./GridPanel.vue"
 import AutoInput from "./AutoInput.vue"
@@ -151,6 +176,7 @@ export default {
     return {
       error: null,
       collapse: {},
+      quickSearch: "",
       currentFilters: [],
       filters: {},
       changed: false,
@@ -159,9 +185,9 @@ export default {
   },
   computed: {
     /*
-    Careful using computed properties for this.params, it's not a proper prop
-    and so changes won't invalidate the computed cache. Ex. can't have a
-    datasource computed property as it is set by the grid later.
+      Careful using computed properties for this.params, it's not a proper prop
+      and so changes won't invalidate the computed cache. Ex. can't have a
+      datasource computed property as it is set by the grid later.
     */
     columnDefs() {
       return this.params.api.gridOptionsWrapper.gridOptions.columnDefs
@@ -171,16 +197,6 @@ export default {
     },
     columnGroups() {
       return this.columnDefs.filter(x => Object.keys(x).includes("children"))
-    },
-    quickSearch: {
-      get() {
-        return this.params.api.rowModel.datasource?.search || ""
-      },
-      set: debounce(function(value) {
-        const datasource = this.params.api.rowModel.datasource
-        datasource.search = value
-        datasource.refresh()
-      }, 500),
     },
   },
   mounted() {
@@ -206,11 +222,13 @@ export default {
       if (!datasource) return
       this.filters = cloneDeep(datasource.filters)
       this.currentFilters = Object.values(datasource.filters)
+      this.quickSearch = datasource.search
     },
     /** Set new filtered grid datasource and update column filtered status */
     submit() {
       if (this.$refs.form.checkValidity()) {
         const datasource = this.params.api.rowModel.datasource
+        datasource.search = this.quickSearch
         datasource.filters = this.filters
         datasource.refresh()
         this.changed = false

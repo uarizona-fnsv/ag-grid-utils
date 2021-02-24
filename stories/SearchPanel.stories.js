@@ -11,8 +11,6 @@ export default {
   component: SearchPanel,
 }
 
-// TODO controls, title
-
 export const Primary = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { AgGridVue, SearchPanel, ColumnFilterSet },

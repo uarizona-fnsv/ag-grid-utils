@@ -53,6 +53,9 @@ export default {
       )
     },
   },
+  mounted() {
+    this.syncValue(true)
+  },
   methods: {
     /** Submit any change on close, grab latest state on open. */
     syncValue(visible) {

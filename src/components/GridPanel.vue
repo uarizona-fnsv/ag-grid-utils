@@ -20,6 +20,7 @@
             aria-label="Resize panel"
             class="btn btn-sm btn-outline-dark mr-1"
             title="Resize panel"
+            data-cy="panel-resize"
             @click="resizePanel"
           >
             <MoveIcon width="16" />
@@ -28,6 +29,7 @@
             class="btn btn-sm btn-outline-dark"
             aria-label="Close panel"
             title="Close panel"
+            data-cy="panel-close"
             @click="closePanel"
           >
             <XIcon width="18" /></button
