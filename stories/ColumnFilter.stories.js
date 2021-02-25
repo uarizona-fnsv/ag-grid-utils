@@ -1,7 +1,7 @@
 import { AgGridVue } from "ag-grid-vue"
 import axios from "axios"
 
-import Datasource from "../src/Datasource"
+import { Datasource } from "../src/Datasource"
 import ColumnFilter from "../src/components/ColumnFilter.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 

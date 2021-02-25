@@ -2,7 +2,7 @@ import Vue from "vue"
 import { AgGridVue } from "ag-grid-vue"
 import axios from "axios"
 
-import Datasource from "../src/Datasource"
+import { Datasource } from "../src/Datasource"
 import GridPanel from "../src/components/GridPanel.vue"
 import columnDefs from "./mocks/olympicColumnDefs"
 

@@ -20,7 +20,7 @@ import axios from "axios"
  * Server-side datasource for agGrid.
  * Handles construction of query string for limit, offset, sorting, and filtering.
  */
-class Datasource {
+export class Datasource {
   /**
    * The options object provided at instantiation.
    * @type {Object}
@@ -223,5 +223,3 @@ class Datasource {
     this.gridApi.purgeServerSideCache()
   }
 }
-
-export default Datasource

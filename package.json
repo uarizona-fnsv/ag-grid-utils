@@ -10,8 +10,8 @@
   },
   "scripts": {
     "check": "tsc -p tsconfig.json",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
+    "sb": "start-storybook -p 6006",
+    "sb:build": "build-storybook",
     "cy": "cypress open",
     "cy:run": "cypress run"
   },

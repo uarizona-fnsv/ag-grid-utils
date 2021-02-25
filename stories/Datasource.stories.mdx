@@ -1,0 +1,34 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks"
+import AgGridVue from "ag-grid-vue"
+
+<Meta title="JavaScript/Datasource" />
+
+# Datasource
+
+> [[source]](https://github.com/uarizona-fnsv/ag-grid-utils/blob/main/src/Datasource.js)
+
+This is a class for the [server-side row model](https://www.ag-grid.com/archive/21.2.0/javascript-grid-server-side-model/) datasource. Its API requests are designed to easily integrate with [Django REST Framework](https://github.com/encode/django-rest-framework), [Django Filter](https://github.com/carltongibson/django-filter), and [Django REST Framework Filters](https://github.com/philipn/django-rest-framework-filters).
+
+## Filtering
+
+All filtering is done through the datasource and the components which hook into it.
+
+The `createFilter()` and `updateFilter()` methods provide the main means of filtering. Filters can also be set on the `filters` property. Calling `refresh()` will request rows with the new filters.
+
+The [SearchPanel](https://github.com/uarizona-fnsv/ag-grid-utils/blob/main/src/components/SearchPanel.vue) component contains good example usage of the `createFilter` API, replacing all filters through the `filters` property, and quick searching through the `search` property.
+
+## Sorting
+
+Sorting can be done via the grid built-ins; the datasource will parse the grid's sort-model.
+
+## API
+
+See the [documented source](https://github.com/uarizona-fnsv/ag-grid-utils/blob/main/src/Datasource.js) for more info on the available methods and properties.
+
+The source is typed via TypeScript in JSDoc comments.
+
+## Examples
+
+This Storybook uses the datastource class to provide rows from a mock server.
+
+<Story id="panels-searchpanel--primary" />
