@@ -21,21 +21,41 @@ import axios from "axios"
  * Handles construction of query string for limit, offset, sorting, and filtering.
  */
 class Datasource {
+  /**
+   * The options object provided at instantiation.
+   * @type {Object}
+   */
   options
+  /** The axios instance used to fetch rows.
+   * @type {import('axios').AxiosInstance}
+   */
   client
-  /** @type {string} */
+  /**
+   * Quick search parameter to compare against all string fields.
+   * @type {string}
+   */
   search = ""
-  /** @type {Object.<string, string>} */
+  /**
+   * Arbitrary query string parameters to always send. Can be overridden by filters.
+   * @type {Object.<string, string>}
+   */
   defaultParams = {}
-  /** @type {Object.<string, string>} */
+  /**
+   * The query string parameters used for the last fetch.
+   * @type {Object.<string, string>}
+   */
   params = {}
-  /** @type {{ [lookup: string]: Filter }} */
+  /**
+   * Filter objects which will be used as params for the next fetch.
+   * @type {{ [lookup: string]: Filter }}
+   */
   filters = {}
   /**
-   * Total number of rows matching the current params.
+   * Total number of rows matching last fetch's params.
    * @type {number}
    */
   totalRows = null
+  /** @type {import('axios').CancelTokenSource} */
   cancelToken = axios.CancelToken.source()
 
   /**
