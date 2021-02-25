@@ -1,0 +1,61 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks"
+import dedent from "ts-dedent"
+
+<Meta title="Docs/ag-Gridisms" />
+
+# ag-Gridisms
+
+### It's kinda weird sometimes
+
+ag-Grid can be a little peculiar and opaque in the way it does things and expects to be interacted with.
+
+## Registering Components
+
+Components can be provided to the grid for use as UI:
+
+1. They must be registered as `FrameworkComponents` in the grid options. They can be aliased but it's best to not so that things are obvious.
+
+2. Framework components must also be imported and registered within the component containing `<AgGridVue>`.
+
+<Source
+  dark={true}
+  language="javascript"
+  code={dedent`
+  import AgGridVue from "ag-grid-vue"
+  import { SearchPanel } from "@uarizona-fnsv/ag-grid-utils"
+  export default {
+    components: { AgGridVue, SearchPanel },
+    data() {
+      return {
+        gridOptions: {
+          frameworkComponents: { SearchPanel: "SearchPanel" }
+        }
+      }
+    }
+  }
+`}
+/>
+
+## Component Params
+
+ad-Grid parameterizes your Vue components by shoemhorning a `params` object onto the Vue instance of your component.
+
+1. It can be a great alternative to syncing grid state to Vuex.
+2. It is not a prop or computed property.
+3. It is not reactive, so you cannot treat it like a prop or computed property.
+
+   - For instance, it can be dangerous to reference `params` in a computed property; because changes aren't tracked the property's cache will never invalidate.
+
+4. It can be used to pass configuration to your components.
+
+   - For example, parameters can be passed to a filter component instance via `colDef.filterParams` in gridOptions. They can then be accessed as `this.params.colDef.filterParams` in the filter component.
+
+## Metadata
+
+You can put arbitrary data on grid objects like colDefs by putting it under the `__metadata__` property! Adding it to other places will cause ag-Grid to throw error unless you set `gridOptions.suppressPropertyNamesCheck`... which is a horrible solution.
+
+## Grid Options
+
+gridOptions objects are mutated by the grid. As the grid mounts, it will add `gridApi` and `columnApi` objects to the provided gridOptions object. Mutations to the object after mount can also be reflected in the grid.
+
+This means: _do not share gridOptions objects between grid instances._

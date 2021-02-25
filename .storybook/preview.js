@@ -2,6 +2,7 @@ import "ag-grid-enterprise"
 import "@uarizona-fnsv/bootstrap/dist/bootstrap.css"
 import "ag-grid-community/dist/styles/ag-grid.css"
 import "ag-grid-community/dist/styles/ag-theme-balham.css"
+import "./fixDocs.css"
 import { LicenseManager } from "ag-grid-enterprise"
 
 import "./cypress-storybook-vue"
@@ -14,4 +15,16 @@ LicenseManager.setLicenseKey(
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  options: {
+    storySort: {
+      order: [
+        "Docs",
+        ["Introduction"],
+        "JavaScript",
+        "Filters",
+        "Panels",
+        "Support",
+      ],
+    },
+  },
 }
