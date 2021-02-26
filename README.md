@@ -26,6 +26,10 @@ See the [documentation](https://uarizona-fnsv.github.io/ag-grid-utils) for instu
 
 ## Development
 
+<!-- todo: write this up -->
+
+You shouldv know that there's [some underdocumented particulars](https://twitter.com/3rxck/status/1365329322261680129) to using Vue with Storybook.
+
 Run Storybook:
 
 ```

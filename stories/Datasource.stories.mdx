@@ -1,5 +1,6 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks"
+import { Meta, Story, Source } from "@storybook/addon-docs/blocks"
 import AgGridVue from "ag-grid-vue"
+import dedent from "ts-dedent"
 
 <Meta title="JavaScript/Datasource" />
 
@@ -8,6 +9,34 @@ import AgGridVue from "ag-grid-vue"
 > [[source]](https://github.com/uarizona-fnsv/ag-grid-utils/blob/main/src/Datasource.js)
 
 This is a class for the [server-side row model](https://www.ag-grid.com/archive/21.2.0/javascript-grid-server-side-model/) datasource. Its API requests are designed to easily integrate with [Django REST Framework](https://github.com/encode/django-rest-framework), [Django Filter](https://github.com/carltongibson/django-filter), and [Django REST Framework Filters](https://github.com/philipn/django-rest-framework-filters).
+
+## Usage
+
+<Source
+  dark={true}
+  language="javascript"
+  code={dedent`
+  import AgGridVue from "ag-grid-vue"
+  import { SearchPanel } from "@uarizona-fnsv/ag-grid-utils"
+  export default {
+    data() {
+      return {
+        gridOptions: {
+          rowModelType: "serverSide",
+        }
+      }
+    },
+    methods: {
+      onReady() {
+          const gridApi = this.gridOptions.api
+          const ds = new Datasource({ gridApi, path: "/olympic/", axios: this.$api })
+          gridApi.setServerSideDatasource(ds)
+        },
+      }
+    }
+  }
+`}
+/>
 
 ## Filtering
 

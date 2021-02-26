@@ -7,3 +7,7 @@ pre code {
   line-height: 19px !important;
   color: #fff !important;
 }
+
+pre .prismjs {
+  background-color: #333333 !important;
+}

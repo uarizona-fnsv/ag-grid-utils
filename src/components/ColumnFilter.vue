@@ -29,6 +29,8 @@ import { ObserveVisibility } from "vue-observe-visibility"
  * Autocomplete suggestions can be provided via `filterParams.getOptions`
  *
  * Multiple values separated by semicolons are accepted.
+ *
+ * `__metadata__.type` must be defined on the column definition.
  */
 export default {
   components: { AutoInput },

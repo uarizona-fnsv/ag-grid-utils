@@ -1,4 +1,5 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks"
+import { Meta, Source } from "@storybook/addon-docs/blocks"
+import dedent from "ts-dedent"
 
 <Meta title="Docs/Introduction" />
 
@@ -9,6 +10,34 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks"
 These components and classes are designed to make it easir to integrate ag-Grid with [Django REST Framework](https://github.com/encode/django-rest-framework), [Django Filter](https://github.com/carltongibson/django-filter), and [Django REST Framework Filters](https://github.com/philipn/django-rest-framework-filters)
 via the [server-side row model](https://www.ag-grid.com/archive/21.2.0/javascript-grid-server-side-model/).
 
+Each component story contains a full grid setup with the component, column defs, and a datasource. Use these stories as living usage examples!
+
 ## The Rundown
 
-To be continued...
+0. Make your data available via a Django Rest Framework, ex:
+
+```python
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework import filters
+from rest_framework_filters import backends
+
+class MyViewSet(ReadOnlyModelViewSet):
+    pagination_class = LimitOffsetPagination
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter
+        backends.RestFrameworkFilterBackend,
+    ]
+    filterset_class = MyFilter
+    ordering_fields = "__all_related__"
+    # ...
+```
+
+1. Use the included [Datasource class](/?path=/story/javascript-datasource--page) to fetch data from the API.
+
+2. Create column definitions for your data. [Register](/?path=/story/docs-ag-gridisms--page#registering-components) and use the components for use as panels and filters. The component stories contain complete grid configurations as examples. Use the [`__metadata__.type` property](/?path=/story/docs-ag-gridisms--page#metadata) to give the filter components more information about your fields.
+
+3. `???`
+
+4. Profit
