@@ -6,7 +6,7 @@
 
     <template #extra-controls>
       <button
-        class="btn btn-sm btn-primary-light mr-1"
+        class="btn btn-sm btn-primary-light me-1"
         data-cy="search-go"
         @click="submit"
       >
@@ -14,7 +14,7 @@
         <strong>Go</strong>
       </button>
       <button
-        class="btn btn-sm btn-outline-primary mr-1"
+        class="btn btn-sm btn-outline-primary me-1"
         data-cy="search-clear"
         @click="clearSearch"
       >
@@ -61,7 +61,7 @@
             <span
               v-for="filter in currentFilters"
               :key="filter.key"
-              class="filter-badge badge border border-secondary mr-1 my-1"
+              class="filter-badge badge border border-secondary me-1 my-1"
             >
               {{ colName(filter.key.replace("__", ".")) }}:
               <span v-if="['date', 'datetime'].includes(filter.type)">
