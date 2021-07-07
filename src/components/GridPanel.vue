@@ -18,7 +18,7 @@
         <slot name="controls">
           <button
             aria-label="Resize panel"
-            class="btn btn-sm btn-outline-dark mr-1"
+            class="btn btn-sm btn-outline-dark me-1"
             title="Resize panel"
             data-cy="panel-resize"
             @click="resizePanel"
