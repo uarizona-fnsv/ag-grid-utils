@@ -32,7 +32,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install: false
-          start: npm run storybook -- --quiet --ci
+          start: npm run sb -- --quiet --ci
           browser: firefox # chrome fails with SIGSEGV
           wait-on: "http://localhost:6006"
       - uses: actions/upload-artifact@v2
