@@ -31,7 +31,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          install: false
+          install: true
           start: npm run sb -- --quiet --ci
           browser: firefox # chrome fails with SIGSEGV
           wait-on: "http://localhost:6006"
