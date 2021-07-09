@@ -1,5 +1,5 @@
 context("AutoInput", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visitStorybook()
   })
 
