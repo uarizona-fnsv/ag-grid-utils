@@ -1,9 +1,6 @@
 context("SearchPanel", () => {
-  before(() => {
-    cy.visitStorybook()
-  })
-
   beforeEach(() => {
+    cy.visitStorybook()
     cy.loadStory("Panels/SearchPanel", "Primary")
   })
 
