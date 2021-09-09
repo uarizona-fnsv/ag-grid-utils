@@ -10,7 +10,7 @@ import "../src/styles/grid.css"
 import "../stories/mocks/api"
 
 LicenseManager.setLicenseKey(
-  "University_of_Arizona_Financial_Services_Office_MultiApp_3Devs21_September_2019__MTU2OTAyMDQwMDAwMA==c4380c2e713cbc8bf36a69bb01479b60",
+  "CompanyName=University of Arizona Financial Services Office,LicensedGroup=Financial Services-IT,LicenseType=MultipleApplications,LicensedConcurrentDeveloperCount=2,LicensedProductionInstancesCount=0,AssetReference=AG-015281,ExpiryDate=12_August_2022_[v2]_MTY2MDI1ODgwMDAwMA==116e7222abf2813c45918e7c8b238dd9",
 )
 
 export const parameters = {

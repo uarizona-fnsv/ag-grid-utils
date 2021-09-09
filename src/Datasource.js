@@ -62,13 +62,14 @@ export class Datasource {
    * @constructor
    * @param {Object} options
    * @param {import('ag-grid-community').GridApi} options.gridApi
+   * @param {import('ag-grid-community').Column} options.columnApi
    * @param {string} options.path - Path from which to request options
    * @param {Object} [options.axios] - The axios instance to use for queries
    */
   constructor(options) {
     this.gridApi = options.gridApi
     // @ts-ignore
-    this.columnApi = this.gridApi.columnController.columnApi
+    this.columnApi = options.columnApi
     this.options = options
     this.client = options.axios || axios
   }
@@ -81,7 +82,7 @@ export class Datasource {
   /**
    * @param {import('ag-grid-community').IServerSideGetRowsParams} params
    */
-  async getRows({ request, failCallback, successCallback }) {
+  async getRows({ request, fail, success }) {
     this.params = this.getParams(request)
     const config = {
       params: this.params,
@@ -90,19 +91,21 @@ export class Datasource {
     let response
     try {
       response = await this.client.get(this.options.path, config)
+      if (response.data.count < 1) {
+        this.gridApi.showNoRowsOverlay()
+        fail()
+      } else {
+        this.gridApi.hideOverlay()
+        this.totalRows = response.data.count
+        success({
+          rowData: response.data.results,
+          rowCount: response.data.count,
+        })
+      }
     } catch (err) {
       if (axios.isCancel(err)) return
       this.gridApi.showNoRowsOverlay()
-      failCallback()
-    }
-
-    if (response.data.count < 1) {
-      this.gridApi.showNoRowsOverlay()
-      failCallback()
-    } else {
-      this.gridApi.hideOverlay()
-      this.totalRows = response.data.count
-      successCallback(response.data.results, response.data.count)
+      fail()
     }
   }
 
@@ -180,7 +183,7 @@ export class Datasource {
     } else {
       delete this.filters[filter.key]
     }
-    this.gridApi.purgeServerSideCache()
+    this.gridApi.refreshServerSideStore({ purge: true })
   }
 
   /**
@@ -220,6 +223,6 @@ export class Datasource {
 
   /** Refresh grid data from souce */
   refresh() {
-    this.gridApi.purgeServerSideCache()
+    this.gridApi.refreshServerSideStore({ purge: true })
   }
 }

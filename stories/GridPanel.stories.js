@@ -45,7 +45,8 @@ export const Grid = (args, { argTypes }) => ({
   methods: {
     onReady() {
       const gridApi = this.gridOptions.api
-      const ds = new Datasource({ gridApi, path: "/olympic/" })
+      const columnApi = this.gridOptions.columnApi
+      const ds = new Datasource({ gridApi, columnApi, path: "/olympic/" })
       gridApi.setServerSideDatasource(ds)
     },
     getOptions: async (field, value) => {
@@ -59,6 +60,7 @@ export const Grid = (args, { argTypes }) => ({
     return {
       gridOptions: {
         rowModelType: "serverSide",
+        serverSideStoreType: "partial",
         frameworkComponents: { GridPanelExample: "GridPanelExample" },
         sideBar: {
           toolPanels: [

@@ -11,6 +11,6 @@
     "noImplicitThis": true,
     // "strict": true,
     "resolveJsonModule": true,
-    "target": "ES2020", // we're using Babel
+    "lib": ["ES2020"], // we're using Babel
   },
 }
