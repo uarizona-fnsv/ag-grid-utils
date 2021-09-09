@@ -258,7 +258,7 @@ export default {
       }
     },
     colName(id) {
-      const columnApi = this.params.api.columnController.columnApi
+      const columnApi = this.params.columnApi
       return columnApi.getColumn(id).colDef.headerName
     },
   },
